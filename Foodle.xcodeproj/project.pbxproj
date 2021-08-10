@@ -9,29 +9,37 @@
 /* Begin PBXBuildFile section */
 		847CC73226C2B14500A867ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC73126C2B14500A867ED /* AppDelegate.swift */; };
 		847CC73426C2B14500A867ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC73326C2B14500A867ED /* SceneDelegate.swift */; };
-		847CC73626C2B14500A867ED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC73526C2B14500A867ED /* ContentView.swift */; };
 		847CC73826C2B14500A867ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847CC73726C2B14500A867ED /* Assets.xcassets */; };
 		847CC73B26C2B14500A867ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847CC73A26C2B14500A867ED /* Preview Assets.xcassets */; };
 		847CC73E26C2B14500A867ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847CC73C26C2B14500A867ED /* LaunchScreen.storyboard */; };
 		847CC74A26C2BA1500A867ED /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC74926C2BA1500A867ED /* MainTabVC.swift */; };
 		847CC74C26C2BA4400A867ED /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC74B26C2BA4300A867ED /* CameraVC.swift */; };
-		847CC74E26C2BA6300A867ED /* VegetableCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC74D26C2BA6300A867ED /* VegetableCollectionVC.swift */; };
-		847CC75026C2BBF200A867ED /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC74F26C2BBF200A867ED /* Extensions.swift */; };
+		847CC74E26C2BA6300A867ED /* VegetableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC74D26C2BA6300A867ED /* VegetableVC.swift */; };
+		847CC75226C2C09600A867ED /* Vegetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC75126C2C09600A867ED /* Vegetable.swift */; };
+		847CC75426C2C2F800A867ED /* VegetableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC75326C2C2F800A867ED /* VegetableCollectionViewCell.swift */; };
+		847CC75626C2C3D000A867ED /* Extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC75526C2C3D000A867ED /* Extension + UIView.swift */; };
+		847CC75826C2C3E000A867ED /* Extension + UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC75726C2C3E000A867ED /* Extension + UIImage.swift */; };
+		847CC75A26C2CABA00A867ED /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC75926C2CABA00A867ED /* Autolayout.swift */; };
+		847CC75C26C2D51500A867ED /* VegetableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC75B26C2D51500A867ED /* VegetableCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		847CC72E26C2B14500A867ED /* Foodle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foodle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847CC73126C2B14500A867ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847CC73326C2B14500A867ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		847CC73526C2B14500A867ED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		847CC73726C2B14500A867ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		847CC73A26C2B14500A867ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		847CC73D26C2B14500A867ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		847CC73F26C2B14500A867ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		847CC74926C2BA1500A867ED /* MainTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVC.swift; sourceTree = "<group>"; };
 		847CC74B26C2BA4300A867ED /* CameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
-		847CC74D26C2BA6300A867ED /* VegetableCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegetableCollectionVC.swift; sourceTree = "<group>"; };
-		847CC74F26C2BBF200A867ED /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		847CC74D26C2BA6300A867ED /* VegetableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegetableVC.swift; sourceTree = "<group>"; };
+		847CC75126C2C09600A867ED /* Vegetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vegetable.swift; sourceTree = "<group>"; };
+		847CC75326C2C2F800A867ED /* VegetableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegetableCollectionViewCell.swift; sourceTree = "<group>"; };
+		847CC75526C2C3D000A867ED /* Extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIView.swift"; sourceTree = "<group>"; };
+		847CC75726C2C3E000A867ED /* Extension + UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIImage.swift"; sourceTree = "<group>"; };
+		847CC75926C2CABA00A867ED /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Autolayout.swift; sourceTree = "<group>"; };
+		847CC75B26C2D51500A867ED /* VegetableCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegetableCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +78,6 @@
 				847CC74826C2B80B00A867ED /* Utils */,
 				847CC73126C2B14500A867ED /* AppDelegate.swift */,
 				847CC73326C2B14500A867ED /* SceneDelegate.swift */,
-				847CC73526C2B14500A867ED /* ContentView.swift */,
 				847CC73726C2B14500A867ED /* Assets.xcassets */,
 				847CC73C26C2B14500A867ED /* LaunchScreen.storyboard */,
 				847CC73F26C2B14500A867ED /* Info.plist */,
@@ -90,6 +97,7 @@
 		847CC74526C2B7F000A867ED /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				847CC75126C2C09600A867ED /* Vegetable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -97,6 +105,8 @@
 		847CC74626C2B7FA00A867ED /* View */ = {
 			isa = PBXGroup;
 			children = (
+				847CC75326C2C2F800A867ED /* VegetableCollectionViewCell.swift */,
+				847CC75B26C2D51500A867ED /* VegetableCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -105,7 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				847CC74926C2BA1500A867ED /* MainTabVC.swift */,
-				847CC74D26C2BA6300A867ED /* VegetableCollectionVC.swift */,
+				847CC74D26C2BA6300A867ED /* VegetableVC.swift */,
 				847CC74B26C2BA4300A867ED /* CameraVC.swift */,
 			);
 			path = Controller;
@@ -114,7 +124,9 @@
 		847CC74826C2B80B00A867ED /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				847CC74F26C2BBF200A867ED /* Extensions.swift */,
+				847CC75926C2CABA00A867ED /* Autolayout.swift */,
+				847CC75526C2C3D000A867ED /* Extension + UIView.swift */,
+				847CC75726C2C3E000A867ED /* Extension + UIImage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -189,13 +201,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847CC75A26C2CABA00A867ED /* Autolayout.swift in Sources */,
 				847CC73226C2B14500A867ED /* AppDelegate.swift in Sources */,
+				847CC75826C2C3E000A867ED /* Extension + UIImage.swift in Sources */,
+				847CC75226C2C09600A867ED /* Vegetable.swift in Sources */,
 				847CC73426C2B14500A867ED /* SceneDelegate.swift in Sources */,
-				847CC74E26C2BA6300A867ED /* VegetableCollectionVC.swift in Sources */,
+				847CC74E26C2BA6300A867ED /* VegetableVC.swift in Sources */,
 				847CC74C26C2BA4400A867ED /* CameraVC.swift in Sources */,
-				847CC73626C2B14500A867ED /* ContentView.swift in Sources */,
+				847CC75426C2C2F800A867ED /* VegetableCollectionViewCell.swift in Sources */,
+				847CC75626C2C3D000A867ED /* Extension + UIView.swift in Sources */,
 				847CC74A26C2BA1500A867ED /* MainTabVC.swift in Sources */,
-				847CC75026C2BBF200A867ED /* Extensions.swift in Sources */,
+				847CC75C26C2D51500A867ED /* VegetableCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

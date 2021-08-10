@@ -10,7 +10,7 @@ import UIKit
 class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     
     // MARK: - Properties
-    private lazy var vegetableCollectionVC = VegetableCollectionVC()
+    private lazy var vegetableCollectionVC = VegetableVC()
     private lazy var cameraVC = CameraVC()
     
     
@@ -31,7 +31,7 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     
     // function to create view controllers that exist within tab bar controller
     func configureViewControllers() {
-        let vegetableCollectionNavController = constructNavController(
+        let vegetableNavController = constructNavController(
             unselectedImage: UIImage().systemImage(withSystemName: "leaf"),
             selectedImage: UIImage().systemImage(withSystemName: "leaf.fill"),
             rootViewController: vegetableCollectionVC
@@ -43,7 +43,7 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
             rootViewController: cameraVC
         )
         
-        viewControllers = [vegetableCollectionNavController, cameraNavController]
+        viewControllers = [vegetableNavController, cameraNavController]
         tabBar.tintColor = .label
     }
     

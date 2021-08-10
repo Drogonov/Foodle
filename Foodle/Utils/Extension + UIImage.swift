@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  Extension + UIImage.swift
 //  Foodle
 //
 //  Created by Anton Vlezko on 10.08.2021.
