@@ -15,11 +15,11 @@ enum VegetableModelStatus {
     var color: UIColor {
         switch self {
         case .empty:
-            return .red
+            return .systemRed
         case .partlyFilled:
-            return .yellow
+            return .systemYellow
         case .full:
-            return .green
+            return .systemGreen
         }
     }
 }

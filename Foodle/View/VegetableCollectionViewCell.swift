@@ -27,7 +27,7 @@ class VegetableCollectionViewCell: UICollectionViewCell {
     static let reuseId = "VegetableCollectionViewCell"
     private var vegetableID: UUID? = nil
     
-    private let vegetableStatusButtonSize: CGFloat = 32
+    private let vegetableStatusButtonSize: CGFloat = 16
     private let vegetableImageViewSize: CGFloat = 120
     
     private let vegetableStatusButton: UIButton = {
@@ -123,7 +123,7 @@ class VegetableCollectionViewCell: UICollectionViewCell {
     
     func set(viewModel: VegetableCellViewModel) {
         let optImage = viewModel.vegetableImage?.withRenderingMode(.alwaysOriginal)
-        let image = UIImage(named: "Logo_tomato")
+        let image = UIImage(named: "Logo_tomato")?.withRenderingMode(.alwaysOriginal)
         vegetableStatusButton.backgroundColor = viewModel.statusButtonColor
         vegetableImageButton.setImage(optImage ?? image, for: .normal)
         vegetableNameLabel.text = viewModel.vegetableName
@@ -132,7 +132,6 @@ class VegetableCollectionViewCell: UICollectionViewCell {
     
     func configureButtonCell() {
         vegetableImageButton.setImage(#imageLiteral(resourceName: "Plus_icon").withRenderingMode(.alwaysOriginal), for: .normal)
-        vegetableImageButton.backgroundColor = .gray
         vegetableNameLabel.text = "Add model"
     }
 }
