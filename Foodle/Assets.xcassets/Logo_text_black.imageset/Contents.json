@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "add2-512.png",
+      "filename" : "Logo_text_black.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,7 +12,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "add2-512_white.png",
+      "filename" : "Logo_text_white copy.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

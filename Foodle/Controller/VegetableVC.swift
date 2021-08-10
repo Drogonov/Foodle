@@ -12,12 +12,12 @@ class VegetableVC: UIViewController {
     
     let barTitle: String = "Vegetable List"
     let vegetables: [Vegetable] = [
-        Vegetable(name: "Tomato", image: UIImage(named: "vegImage"), modelStatus: .empty),
-        Vegetable(name: "Potato", image: UIImage(named: "vegImage"), modelStatus: .partlyFilled),
-        Vegetable(name: "Banana", image: UIImage(named: "vegImage"), modelStatus: .full),
-        Vegetable(name: "Tomato", image: UIImage(named: "vegImage"), modelStatus: .empty),
-        Vegetable(name: "Potato", image: UIImage(named: "vegImage"), modelStatus: .partlyFilled),
-        Vegetable(name: "Banana", image: UIImage(named: "vegImage"), modelStatus: .full)
+        Vegetable(name: "Tomato", image: UIImage(named: "Logo_tomato_orange"), modelStatus: .empty),
+        Vegetable(name: "Potato", image: nil, modelStatus: .partlyFilled),
+        Vegetable(name: "Banana", image: nil, modelStatus: .full),
+        Vegetable(name: "Tomato", image: UIImage(named: "Logo_tomato_orange"), modelStatus: .empty),
+        Vegetable(name: "Potato", image: nil, modelStatus: .partlyFilled),
+        Vegetable(name: "Banana", image: UIImage(named: "Logo_tomato_orange"), modelStatus: .full)
     ]
     
     private var vegetablesViewModel = VegetableViewModel(cells: [])

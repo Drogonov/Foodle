@@ -123,7 +123,7 @@ class VegetableCollectionViewCell: UICollectionViewCell {
     
     func set(viewModel: VegetableCellViewModel) {
         let optImage = viewModel.vegetableImage?.withRenderingMode(.alwaysOriginal)
-        let image = UIImage().withTintColor(.red)
+        let image = UIImage(named: "Logo_tomato")
         vegetableStatusButton.backgroundColor = viewModel.statusButtonColor
         vegetableImageButton.setImage(optImage ?? image, for: .normal)
         vegetableNameLabel.text = viewModel.vegetableName
