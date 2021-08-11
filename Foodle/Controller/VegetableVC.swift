@@ -11,13 +11,10 @@ class VegetableVC: UIViewController {
     // MARK: - Properties
     
     let barTitle: String = "Vegetable List"
-    let vegetables: [Vegetable] = [
-        Vegetable(name: "Tomato", image: UIImage(named: "Logo_tomato_orange"), modelStatus: .empty),
-        Vegetable(name: "Potato", image: nil, modelStatus: .partlyFilled),
+    var vegetables: [Vegetable] = [
+        Vegetable(name: "Tomato", image: UIImage(named: "tomato_photo"), modelStatus: .empty),
+        Vegetable(name: "Potato", image: UIImage(named: "potato_photo"), modelStatus: .partlyFilled),
         Vegetable(name: "Banana", image: nil, modelStatus: .full),
-        Vegetable(name: "Tomato", image: UIImage(named: "Logo_tomato_orange"), modelStatus: .empty),
-        Vegetable(name: "Potato", image: nil, modelStatus: .partlyFilled),
-        Vegetable(name: "Banana", image: UIImage(named: "Logo_tomato_orange"), modelStatus: .full)
     ]
     
     private var vegetablesViewModel = VegetableViewModel(cells: [])
@@ -32,9 +29,37 @@ class VegetableVC: UIViewController {
         
     }
     
+    // MARK: - Selectors
+    
+    func handleTapVegetable(vegetableID: UUID) {
+        guard let index = vegetables.firstIndex(where: {$0.id == vegetableID}) else { return }
+        let name: String = vegetables[index].name
+        self.showNotification(title: "What do you whant to do with \(name)?",
+                              defaultAction: true,
+                              defaultActionText: "cancel",
+                              rejectAction: true,
+                              rejectActionText: "delete") { config, _  in
+            switch config {
+            case .rejectAction:
+                self.handleDeleteVegetable(vegetableID: vegetableID)
+            default: break
+            }
+        }
+    }
+    
+    func handleDeleteVegetable(vegetableID: UUID) {
+        guard let index = vegetables.firstIndex(where: {$0.id == vegetableID}) else { return }
+        vegetables.remove(at: index)
+        configureVegetables()
+        configureCollectionView()
+        debugPrint(vegetablesViewModel.cells)
+    }
+    
+    
     // MARK: - Helper Functions
     
     func configureVegetables() {
+        vegetablesViewModel = VegetableViewModel(cells: [])
         vegetablesViewModel = VegetableViewModel(vegetables: vegetables)
     }
     
@@ -72,6 +97,7 @@ extension VegetableVC: VegetableCollectionViewDelegate {
     
     func handleVegetableButton(vegetableID: UUID?) {
         if vegetableID != nil {
+            self.handleTapVegetable(vegetableID: vegetableID!)
             debugPrint("handleVegetableButton \(vegetableID)")
         } else {
             debugPrint("Add model tapped")

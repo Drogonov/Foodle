@@ -38,7 +38,7 @@ class VegetableCollectionViewCell: UICollectionViewCell {
     
     private let vegetableImageButton: UIButton = {
         let button = UIButton(type: .system)
-        button.contentMode = .scaleAspectFit
+        button.contentMode = .scaleAspectFill
         button.backgroundColor = .systemBackground
         button.layer.masksToBounds = true
         button.layer.borderColor = UIColor.label.cgColor
@@ -122,15 +122,21 @@ class VegetableCollectionViewCell: UICollectionViewCell {
     // MARK: - Set
     
     func set(viewModel: VegetableCellViewModel) {
-        let optImage = viewModel.vegetableImage?.withRenderingMode(.alwaysOriginal)
-        let image = UIImage(named: "Logo_tomato")?.withRenderingMode(.alwaysOriginal)
+        let optImage = viewModel.vegetableImage?
+            .withRenderingMode(.alwaysOriginal)
+        let image = resizeImage(image: UIImage(named: "Logo_tomato")!,
+                                targetSize: CGSize(width: 80, height: 80))
+            .withRenderingMode(.alwaysOriginal)
+
         vegetableStatusButton.backgroundColor = viewModel.statusButtonColor
         vegetableImageButton.setImage(optImage ?? image, for: .normal)
         vegetableNameLabel.text = viewModel.vegetableName
         vegetableID = viewModel.id
+        
     }
     
     func configureButtonCell() {
+        vegetableID = nil
         vegetableImageButton.setImage(#imageLiteral(resourceName: "Plus_icon").withRenderingMode(.alwaysOriginal), for: .normal)
         vegetableNameLabel.text = "Add model"
     }

@@ -7,23 +7,6 @@
 
 import UIKit
 
-enum VegetableModelStatus {
-    case empty
-    case partlyFilled
-    case full
-    
-    var color: UIColor {
-        switch self {
-        case .empty:
-            return .systemRed
-        case .partlyFilled:
-            return .systemYellow
-        case .full:
-            return .systemGreen
-        }
-    }
-}
-
 struct Vegetable {
     let id = UUID()
     let name: String

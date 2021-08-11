@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "tomato_red_vegetables_food_healthy_harvest_fruit_frisch-496630.jpg!d.jpeg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
