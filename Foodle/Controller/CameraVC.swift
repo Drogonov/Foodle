@@ -12,6 +12,23 @@ class CameraVC: UIViewController {
     // MARK: - Properties
     
     let barTitle: String = "Camera"
+    var vegetableName: String?
+    var image: UIImage?
+    var imagesDataStore: ImagesDataStore?
+    
+    lazy var recognitionRequest: VNCoreMLRequest = {
+        do {
+            let model = try VNCoreMLModel(for: MLModel())
+            let request = VNCoreMLRequest(model: model) { [weak self] request, error in
+                guard let self = self else { return }
+                self.classificationProcess(for: request, error: error)
+            }
+            request.imageCropAndScaleOption = .centerCrop
+            return request
+        } catch {
+            fatalError("Failed to load Vision ML model: \(error.localizedDescription)")
+        }
+    }()
     
     // MARK: - Lifecycle
     
