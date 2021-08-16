@@ -11,6 +11,7 @@ struct Vegetable {
     let id = UUID()
     let name: String
     let image: UIImage?
+    let emoji: String.Element?
     let modelStatus: VegetableModelStatus
 }
 
@@ -19,6 +20,7 @@ struct VegetableViewModel {
         var id: UUID
         var statusButtonColor: UIColor
         var vegetableImage: UIImage?
+        var vegetableEmoji: String.Element?
         var vegetableName: String
     }
     
@@ -32,6 +34,7 @@ extension VegetableViewModel {
                 id: vegetable.id,
                 statusButtonColor: vegetable.modelStatus.color,
                 vegetableImage: vegetable.image,
+                vegetableEmoji: vegetable.emoji,
                 vegetableName: vegetable.name
             )
             return cell

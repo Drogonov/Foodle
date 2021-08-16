@@ -12,6 +12,7 @@ protocol VegetableCellViewModel {
     var statusButtonColor: UIColor { get }
     var vegetableImage: UIImage? { get }
     var vegetableName: String { get }
+    var vegetableEmoji: String.Element? { get }
 }
 
 protocol VegetableCollectionViewCellDelegate: AnyObject {
@@ -25,7 +26,12 @@ class VegetableCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: VegetableCollectionViewCellDelegate?
     static let reuseId = "VegetableCollectionViewCell"
+    
     private var vegetableID: UUID? = nil
+    private var statusButtonColor: UIColor? = nil
+    private var vegetableImage: UIImage? = nil
+    private var vegetableName: String? = nil
+    private var vegetableEmoji: String.Element? = nil
     
     private let vegetableStatusButtonSize: CGFloat = 16
     private let vegetableImageViewSize: CGFloat = 120
@@ -43,6 +49,7 @@ class VegetableCollectionViewCell: UICollectionViewCell {
         button.layer.masksToBounds = true
         button.layer.borderColor = UIColor.label.cgColor
         button.layer.borderWidth = 2
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 64)
         return button
     }()
     
@@ -64,6 +71,15 @@ class VegetableCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        vegetableID = nil
+        statusButtonColor = nil
+        vegetableImage = nil
+        vegetableName = nil
+        vegetableEmoji = nil
+    }
+    
     // MARK: - Selectors
     
     @objc func handleStatusButton() {
@@ -77,6 +93,16 @@ class VegetableCollectionViewCell: UICollectionViewCell {
     // MARK: - Helper Functions
     
     private func configureUI() {
+        configureVegetableStatus()
+        configureVegetableButton()
+        configureVegetableName()
+
+        backgroundColor = .secondarySystemBackground
+        layer.cornerRadius = 10
+    }
+    
+    private func configureVegetableStatus() {
+        vegetableStatusButton.backgroundColor = statusButtonColor
         addSubview(vegetableStatusButton)
         vegetableStatusButton.anchor(
             top: self.topAnchor,
@@ -90,7 +116,11 @@ class VegetableCollectionViewCell: UICollectionViewCell {
                                         action: #selector(handleStatusButton),
                                         for: .touchUpInside)
         vegetableStatusButton.addShadow()
-        
+    }
+    
+    private func configureVegetableButton() {
+        vegetableImageButton.setImage(vegetableImage, for: .normal)
+        vegetableImageButton.setTitle(String(vegetableEmoji ?? String.Element("❓")), for: .normal)
         addSubview(vegetableImageButton)
         vegetableImageButton.anchor(
             top: vegetableStatusButton.bottomAnchor,
@@ -103,7 +133,10 @@ class VegetableCollectionViewCell: UICollectionViewCell {
         vegetableImageButton.addTarget(self,
                                        action: #selector(handleVegetableButton),
                                        for: .touchUpInside)
-        
+    }
+    
+    private func configureVegetableName() {
+        vegetableNameLabel.text = vegetableName
         addSubview(vegetableNameLabel)
         vegetableNameLabel.anchor(
             top: vegetableImageButton.bottomAnchor,
@@ -114,30 +147,23 @@ class VegetableCollectionViewCell: UICollectionViewCell {
             paddingBottom: 16,
             paddingRight: 16
         )
-        
-        backgroundColor = .secondarySystemBackground
-        layer.cornerRadius = 10
     }
+    
     
     // MARK: - Set
     
     func set(viewModel: VegetableCellViewModel) {
-        let optImage = viewModel.vegetableImage?
-            .withRenderingMode(.alwaysOriginal)
-        let image = resizeImage(image: UIImage(named: "Logo_tomato")!,
-                                targetSize: CGSize(width: 80, height: 80))
-            .withRenderingMode(.alwaysOriginal)
-
-        vegetableStatusButton.backgroundColor = viewModel.statusButtonColor
-        vegetableImageButton.setImage(optImage ?? image, for: .normal)
-        vegetableNameLabel.text = viewModel.vegetableName
         vegetableID = viewModel.id
-        
+        vegetableName = viewModel.vegetableName
+        vegetableImage = viewModel.vegetableImage?.withRenderingMode(.alwaysOriginal)
+        statusButtonColor = viewModel.statusButtonColor
+        vegetableEmoji = viewModel.vegetableEmoji
+        configureUI()
     }
     
     func configureButtonCell() {
-        vegetableID = nil
-        vegetableImageButton.setImage(#imageLiteral(resourceName: "Plus_icon").withRenderingMode(.alwaysOriginal), for: .normal)
-        vegetableNameLabel.text = "Add model"
+        vegetableImage = UIImage(named: "plus_icon")?.withRenderingMode(.alwaysOriginal)
+        vegetableName = "Add new"
+        configureUI()
     }
 }

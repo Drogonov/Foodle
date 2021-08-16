@@ -12,9 +12,9 @@ class VegetableVC: UIViewController {
     
     let barTitle: String = "Vegetable List"
     var vegetables: [Vegetable] = [
-        Vegetable(name: "Tomato", image: UIImage(named: "tomato_photo"), modelStatus: .empty),
-        Vegetable(name: "Potato", image: UIImage(named: "potato_photo"), modelStatus: .partlyFilled),
-        Vegetable(name: "Banana", image: nil, modelStatus: .full),
+        Vegetable(name: "Tomato", image: nil, emoji: "🍅", modelStatus: .empty),
+        Vegetable(name: "Potato", image: nil, emoji: "🥔", modelStatus: .partlyFilled),
+        Vegetable(name: "Banana", image: nil, emoji: "🍌", modelStatus: .full),
     ]
     
     private var vegetablesViewModel = VegetableViewModel(cells: [])
@@ -51,7 +51,6 @@ class VegetableVC: UIViewController {
         guard let index = vegetables.firstIndex(where: {$0.id == vegetableID}) else { return }
         vegetables.remove(at: index)
         configureVegetables()
-        configureCollectionView()
         debugPrint(vegetablesViewModel.cells)
     }
     
@@ -61,6 +60,7 @@ class VegetableVC: UIViewController {
     func configureVegetables() {
         vegetablesViewModel = VegetableViewModel(cells: [])
         vegetablesViewModel = VegetableViewModel(vegetables: vegetables)
+        vegetableCollectionView.set(vegatables: vegetablesViewModel.cells)
     }
     
     func configureUI() {
