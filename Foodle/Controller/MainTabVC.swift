@@ -10,9 +10,11 @@ import UIKit
 class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     
     // MARK: - Properties
+    private lazy var settingsCollectionVC = SettingsVC()
     private lazy var vegetableCollectionVC = VegetableVC()
     private lazy var cameraVC = CameraVC()
-    
+    private lazy var dataVC = DataViewController()
+
     
     // MARK: - Lifecycle
     
@@ -31,6 +33,12 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     
     // function to create view controllers that exist within tab bar controller
     func configureViewControllers() {
+        let settingsNavController = constructNavController(
+            unselectedImage: UIImage().systemImage(withSystemName: "gear"),
+            selectedImage: UIImage().systemImage(withSystemName: "gear.fill"),
+            rootViewController: settingsCollectionVC
+        )
+        
         let vegetableNavController = constructNavController(
             unselectedImage: UIImage().systemImage(withSystemName: "leaf"),
             selectedImage: UIImage().systemImage(withSystemName: "leaf.fill"),
@@ -43,7 +51,17 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
             rootViewController: cameraVC
         )
         
-        viewControllers = [vegetableNavController, cameraNavController]
+        let dataNavController = constructNavController(
+            unselectedImage: UIImage().systemImage(withSystemName: "folder"),
+            selectedImage: UIImage().systemImage(withSystemName: "folder.fill"),
+            rootViewController: dataVC
+        )
+        
+        dataVC.imagesByLabel = ImagesByLabel(dataset: trainingDataset)
+        
+        
+        viewControllers = [settingsNavController, vegetableNavController, cameraNavController, dataNavController]
+        selectedIndex = 1
         tabBar.tintColor = .label
     }
     

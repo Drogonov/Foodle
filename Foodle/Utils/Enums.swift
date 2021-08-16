@@ -33,3 +33,22 @@ enum VegetableModelStatus {
         }
     }
 }
+
+enum Router {
+    case trainingData
+    case testingData
+    case train
+    case evaluate
+}
+
+enum SettingsButtonType {
+    case loadDataSet
+    case resetToEmpty
+    case resetToTuri
+}
+
+enum SettingsType {
+    case button(type: SettingsButtonType)
+    case router(router: Router)
+    case toogle
+}
