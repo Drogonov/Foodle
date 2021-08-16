@@ -28,6 +28,15 @@
 		8460553826CA5E2A001AF9EE /* HandsEmpty.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8460553626CA5E2A001AF9EE /* HandsEmpty.mlmodel */; };
 		8460553A26CA6B16001AF9EE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460553926CA6B16001AF9EE /* Models.swift */; };
 		8460553C26CA6BF7001AF9EE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460553B26CA6BF7001AF9EE /* Settings.swift */; };
+		8460554226CA71CE001AF9EE /* NeuralNetworkTrainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460553D26CA71CE001AF9EE /* NeuralNetworkTrainer.swift */; };
+		8460554326CA71CE001AF9EE /* TrainNeuralNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460553E26CA71CE001AF9EE /* TrainNeuralNetworkViewController.swift */; };
+		8460554426CA71CE001AF9EE /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460553F26CA71CE001AF9EE /* GraphView.swift */; };
+		8460554626CA71CE001AF9EE /* TrainingBatchProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460554126CA71CE001AF9EE /* TrainingBatchProvider.swift */; };
+		8460554D26CA71DC001AF9EE /* EvaluateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8460554726CA71DC001AF9EE /* EvaluateCell.xib */; };
+		8460554E26CA71DC001AF9EE /* EvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460554826CA71DC001AF9EE /* EvaluateViewController.swift */; };
+		8460555026CA71DC001AF9EE /* SummaryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460554A26CA71DC001AF9EE /* SummaryHeaderView.swift */; };
+		8460555126CA71DC001AF9EE /* EvaluateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460554B26CA71DC001AF9EE /* EvaluateCell.swift */; };
+		8460555226CA71DC001AF9EE /* SummaryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8460554C26CA71DC001AF9EE /* SummaryHeaderView.xib */; };
 		847CC73226C2B14500A867ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC73126C2B14500A867ED /* AppDelegate.swift */; };
 		847CC73426C2B14500A867ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC73326C2B14500A867ED /* SceneDelegate.swift */; };
 		847CC73826C2B14500A867ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847CC73726C2B14500A867ED /* Assets.xcassets */; };
@@ -68,6 +77,15 @@
 		8460553626CA5E2A001AF9EE /* HandsEmpty.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = HandsEmpty.mlmodel; sourceTree = "<group>"; };
 		8460553926CA6B16001AF9EE /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		8460553B26CA6BF7001AF9EE /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		8460553D26CA71CE001AF9EE /* NeuralNetworkTrainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeuralNetworkTrainer.swift; sourceTree = "<group>"; };
+		8460553E26CA71CE001AF9EE /* TrainNeuralNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainNeuralNetworkViewController.swift; sourceTree = "<group>"; };
+		8460553F26CA71CE001AF9EE /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		8460554126CA71CE001AF9EE /* TrainingBatchProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingBatchProvider.swift; sourceTree = "<group>"; };
+		8460554726CA71DC001AF9EE /* EvaluateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EvaluateCell.xib; sourceTree = "<group>"; };
+		8460554826CA71DC001AF9EE /* EvaluateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvaluateViewController.swift; sourceTree = "<group>"; };
+		8460554A26CA71DC001AF9EE /* SummaryHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryHeaderView.swift; sourceTree = "<group>"; };
+		8460554B26CA71DC001AF9EE /* EvaluateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvaluateCell.swift; sourceTree = "<group>"; };
+		8460554C26CA71DC001AF9EE /* SummaryHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryHeaderView.xib; sourceTree = "<group>"; };
 		847CC72E26C2B14500A867ED /* Foodle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foodle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847CC73126C2B14500A867ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847CC73326C2B14500A867ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +135,10 @@
 		8460552226CA3D01001AF9EE /* Training */ = {
 			isa = PBXGroup;
 			children = (
+				8460553F26CA71CE001AF9EE /* GraphView.swift */,
+				8460553D26CA71CE001AF9EE /* NeuralNetworkTrainer.swift */,
+				8460554126CA71CE001AF9EE /* TrainingBatchProvider.swift */,
+				8460553E26CA71CE001AF9EE /* TrainNeuralNetworkViewController.swift */,
 				8460552326CA3D10001AF9EE /* History.swift */,
 			);
 			path = Training;
@@ -142,6 +164,18 @@
 				8460553526CA5E2A001AF9EE /* HandsTuri.mlmodel */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8460555326CA71EA001AF9EE /* Evaluete */ = {
+			isa = PBXGroup;
+			children = (
+				8460554B26CA71DC001AF9EE /* EvaluateCell.swift */,
+				8460554726CA71DC001AF9EE /* EvaluateCell.xib */,
+				8460554826CA71DC001AF9EE /* EvaluateViewController.swift */,
+				8460554A26CA71DC001AF9EE /* SummaryHeaderView.swift */,
+				8460554C26CA71DC001AF9EE /* SummaryHeaderView.xib */,
+			);
+			path = Evaluete;
 			sourceTree = "<group>";
 		};
 		847CC72526C2B14500A867ED = {
@@ -171,6 +205,7 @@
 				847CC74826C2B80B00A867ED /* Utils */,
 				8460551526CA3C0E001AF9EE /* CoreML */,
 				8460552226CA3D01001AF9EE /* Training */,
+				8460555326CA71EA001AF9EE /* Evaluete */,
 				8460552726CA4517001AF9EE /* Data screen */,
 				847CC73126C2B14500A867ED /* AppDelegate.swift */,
 				847CC73326C2B14500A867ED /* SceneDelegate.swift */,
@@ -291,6 +326,8 @@
 			files = (
 				847CC73E26C2B14500A867ED /* LaunchScreen.storyboard in Resources */,
 				8460553326CA5320001AF9EE /* SectionHeaderView.xib in Resources */,
+				8460555226CA71DC001AF9EE /* SummaryHeaderView.xib in Resources */,
+				8460554D26CA71DC001AF9EE /* EvaluateCell.xib in Resources */,
 				8460551026CA1EAA001AF9EE /* Dataset in Resources */,
 				847CC73B26C2B14500A867ED /* Preview Assets.xcassets in Resources */,
 				8460553026CA5320001AF9EE /* ExampleCell.xib in Resources */,
@@ -313,12 +350,16 @@
 				8460552626CA3DAF001AF9EE /* UIImage + Resize.swift in Sources */,
 				8460552926CA4542001AF9EE /* DataViewController.swift in Sources */,
 				847CC75A26C2CABA00A867ED /* Autolayout.swift in Sources */,
+				8460554326CA71CE001AF9EE /* TrainNeuralNetworkViewController.swift in Sources */,
 				847CC73226C2B14500A867ED /* AppDelegate.swift in Sources */,
 				8460553A26CA6B16001AF9EE /* Models.swift in Sources */,
 				847CC75826C2C3E000A867ED /* Extension + UIImage.swift in Sources */,
+				8460554E26CA71DC001AF9EE /* EvaluateViewController.swift in Sources */,
 				847CC75226C2C09600A867ED /* Vegetable.swift in Sources */,
+				8460554426CA71CE001AF9EE /* GraphView.swift in Sources */,
 				847CC73426C2B14500A867ED /* SceneDelegate.swift in Sources */,
 				8460551F26CA3CB8001AF9EE /* Globals.swift in Sources */,
+				8460555026CA71DC001AF9EE /* SummaryHeaderView.swift in Sources */,
 				8460551726CA3C1A001AF9EE /* Predictor.swift in Sources */,
 				847CC74E26C2BA6300A867ED /* VegetableVC.swift in Sources */,
 				847CC74C26C2BA4400A867ED /* CameraVC.swift in Sources */,
@@ -329,12 +370,15 @@
 				8460553C26CA6BF7001AF9EE /* Settings.swift in Sources */,
 				8460551926CA3C37001AF9EE /* ImageLoader.swift in Sources */,
 				847CC75626C2C3D000A867ED /* Extension + UIView.swift in Sources */,
+				8460554626CA71CE001AF9EE /* TrainingBatchProvider.swift in Sources */,
 				847CC74A26C2BA1500A867ED /* MainTabVC.swift in Sources */,
 				8460553226CA5320001AF9EE /* ExampleCell.swift in Sources */,
 				8460552B26CA4571001AF9EE /* ImagesByLabel.swift in Sources */,
+				8460554226CA71CE001AF9EE /* NeuralNetworkTrainer.swift in Sources */,
 				8460552126CA3CCE001AF9EE /* Labels.swift in Sources */,
 				84DB677A26C4256700658285 /* Enums.swift in Sources */,
 				847CC75C26C2D51500A867ED /* VegetableCollectionView.swift in Sources */,
+				8460555126CA71DC001AF9EE /* EvaluateCell.swift in Sources */,
 				8460551226CA2ADA001AF9EE /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -50,6 +50,7 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
             selectedImage: UIImage().systemImage(withSystemName: "camera.fill"),
             rootViewController: cameraVC
         )
+        cameraVC.model = Models.loadTrainedNeuralNetwork()
         
         let dataNavController = constructNavController(
             unselectedImage: UIImage().systemImage(withSystemName: "folder"),

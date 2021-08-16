@@ -25,7 +25,7 @@ class CameraVC: UIViewController {
         super.viewDidLoad()
         configureUI()
         textView.text = "Use the camera to take a photo."
-//        predictor = Predictor(model: model)
+        predictor = Predictor(model: model)
     }
     
     // MARK: - Selectors
@@ -101,7 +101,8 @@ class CameraVC: UIViewController {
     func configureTextView() {
         textView.font = UIFont.boldSystemFont(ofSize: 18)
         textView.textAlignment = .center
-        
+        textView.showsVerticalScrollIndicator = false
+
         view.addSubview(textView)
         textView.anchor(
             top: imageView.bottomAnchor,
@@ -110,7 +111,6 @@ class CameraVC: UIViewController {
             trailing: view.safeAreaLayoutGuide.rightAnchor,
             paddingTop: 16,
             paddingLeft: 16,
-            paddingBottom: 16,
             paddingRight: 16
         )
     }

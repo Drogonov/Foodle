@@ -49,26 +49,41 @@ class SettingsVC: UIViewController {
     func routeTo(router: Router) {
         switch router {
         case .trainingData:
-            trainingTapped()
+            trainingDataTapped()
         case .testingData:
-            testingTappedTapped()
+            testingDataTapped()
         case .train:
-            break
+            trainTapped()
         case .evaluate:
-            break
+            evaluateTapped()
         }
     }
     
-    @objc func trainingTapped() {
+    @objc func trainingDataTapped() {
         let trainingDataVC = DataViewController()
         trainingDataVC.imagesByLabel = ImagesByLabel(dataset: trainingDataset)
         navigationController?.pushViewController(trainingDataVC, animated: true)
     }
     
-    @objc func testingTappedTapped() {
+    @objc func testingDataTapped() {
         let testingDataVC = DataViewController()
         testingDataVC.imagesByLabel = ImagesByLabel(dataset: testingDataset)
         navigationController?.pushViewController(testingDataVC, animated: true)
+    }
+    
+    @objc func trainTapped() {
+        let trainVC = TrainNeuralNetworkViewController()
+        trainVC.model = Models.loadTrainedNeuralNetwork()
+        trainVC.trainingDataset = trainingDataset
+        trainVC.validationDataset = testingDataset
+        navigationController?.pushViewController(trainVC, animated: true)
+    }
+    
+    @objc func evaluateTapped() {
+        let evaluateVC = EvaluateViewController()
+        evaluateVC.model = Models.loadTrainedNeuralNetwork()
+        evaluateVC.dataset = testingDataset
+        navigationController?.pushViewController(evaluateVC, animated: true)
     }
     
     // MARK: - Selectors
