@@ -113,17 +113,17 @@ class SettingsVC: UIViewController {
     @objc func resetToEmpty() {
         Models.deleteTrainedNeuralNetwork()
         Models.copyEmptyNeuralNetwork()
-        Globals.shared.history.delete()
+        history.delete()
     }
     
     @objc func resetToTuri() {
         Models.deleteTrainedNeuralNetwork()
         Models.copyTuriNeuralNetwork()
-        Globals.shared.history.delete()
+        history.delete()
     }
     
     @objc func backgroundTrainingSwitchTapped(value: Bool) {
-        Globals.shared.settings.isBackgroundTrainingEnabled = value
+        settings.isBackgroundTrainingEnabled = value
     }
     
     

@@ -62,7 +62,7 @@ class CameraVC: UIViewController {
       s += String(format: "Probability: %.2f%%\n\n", prediction.confidence * 100)
       s += "Results for all classes:\n"
       s += prediction.sortedProbabilities
-        .map { String(format: "%@ %f", Globals.shared.labels.userLabel(for: $0.0), $0.1) }
+        .map { String(format: "%@ %f", labels.userLabel(for: $0.0), $0.1) }
                      .joined(separator: "\n")
       return s
     }

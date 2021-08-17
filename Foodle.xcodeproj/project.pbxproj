@@ -133,10 +133,10 @@
 		8460552226CA3D01001AF9EE /* Training screen */ = {
 			isa = PBXGroup;
 			children = (
+				8460553E26CA71CE001AF9EE /* TrainNeuralNetworkViewController.swift */,
 				8460553F26CA71CE001AF9EE /* GraphView.swift */,
 				8460553D26CA71CE001AF9EE /* NeuralNetworkTrainer.swift */,
 				8460554126CA71CE001AF9EE /* TrainingBatchProvider.swift */,
-				8460553E26CA71CE001AF9EE /* TrainNeuralNetworkViewController.swift */,
 				8460552326CA3D10001AF9EE /* History.swift */,
 			);
 			path = "Training screen";

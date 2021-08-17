@@ -120,7 +120,7 @@ class EvaluateViewController: UITableViewController {
                 
                 // If this is a gesture the user defined, then use their label instead
                 // of the internal one from the mlmodel file.
-                let predictedLabel = Globals.shared.labels.userLabel(for: prediction.label)
+                let predictedLabel = labels.userLabel(for: prediction.label)
                 
                 cell.setResults(trueLabel: trueLabel, predictedLabel: predictedLabel,
                                 confidence: prediction.confidence, isCorrect: isCorrect)

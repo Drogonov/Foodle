@@ -28,7 +28,7 @@ class NeuralNetworkTrainer {
     // Core ML already does the shuffling for us. We also don't need to set a
     // batch size because Core ML also takes care of making the mini-batches.
     trainingLoader = ImageLoader(dataset: trainingDataset,
-                                 augment: Globals.shared.settings.isAugmentationEnabled,
+                                 augment: settings.isAugmentationEnabled,
                                  imageConstraint: imageConstraint)
 
     // After each epoch, we'll try the updated model on the validation set.
@@ -46,7 +46,7 @@ class NeuralNetworkTrainer {
     do {
       var startTime = CACurrentMediaTime()
 
-        trainingLoader.augment = Globals.shared.settings.isAugmentationEnabled
+        trainingLoader.augment = settings.isAugmentationEnabled
 
       let trainingData = TrainingBatchProvider(imageLoader: trainingLoader)
 

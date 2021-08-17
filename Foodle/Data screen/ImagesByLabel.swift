@@ -51,14 +51,14 @@ class ImagesByLabel {
     
     private func updateGroups() {
         groups = [:]
-        for label in Globals.shared.labels.labelNames {
+        for label in labels.labelNames {
             groups[label] = dataset.images(withLabel: label)
         }
     }
     
     private func set() {
         updateGroups()
-        labelsArray = Globals.shared.labels.labelNames.map { label -> LabelSection in
+        labelsArray = labels.labelNames.map { label -> LabelSection in
             let numberOfImages = numberOfImages(for: label)
             var images: [UIImage] = []
 

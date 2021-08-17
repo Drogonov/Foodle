@@ -20,7 +20,7 @@ class GraphView: UIView, CAAnimationDelegate {
   }
 
   func update() {
-    let trainLoss = Globals.shared.history.events.map { $0.trainLoss }
+    let trainLoss = history.events.map { $0.trainLoss }
     draw(data: trainLoss, in: shapeLayer)
   }
 

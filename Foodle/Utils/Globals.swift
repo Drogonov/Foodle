@@ -11,10 +11,15 @@ import Foundation
 
 struct Globals {
     static let shared = Globals()
-    
-    let labels = Labels()
+
     let trainingDataset = ImageDataset(split: .train)
     let testingDataset = ImageDataset(split: .test)
-    let settings = Settings()
-    let history = History.load()
 }
+
+let labels = Labels()
+let settings = Settings()
+let history = History.load()
+
+
+
+
