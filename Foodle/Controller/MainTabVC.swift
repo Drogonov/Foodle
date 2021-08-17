@@ -13,8 +13,6 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     private lazy var settingsCollectionVC = SettingsVC()
     private lazy var vegetableCollectionVC = VegetableVC()
     private lazy var cameraVC = CameraVC()
-    private lazy var dataVC = DataViewController()
-
     
     // MARK: - Lifecycle
     
@@ -34,8 +32,8 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     // function to create view controllers that exist within tab bar controller
     func configureViewControllers() {
         let settingsNavController = constructNavController(
-            unselectedImage: UIImage().systemImage(withSystemName: "gear"),
-            selectedImage: UIImage().systemImage(withSystemName: "gear.fill"),
+            unselectedImage: UIImage().systemImage(withSystemName: "gearshape"),
+            selectedImage: UIImage().systemImage(withSystemName: "gearshape.fill"),
             rootViewController: settingsCollectionVC
         )
         
@@ -52,16 +50,7 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
         )
         cameraVC.model = Models.loadTrainedNeuralNetwork()
         
-        let dataNavController = constructNavController(
-            unselectedImage: UIImage().systemImage(withSystemName: "folder"),
-            selectedImage: UIImage().systemImage(withSystemName: "folder.fill"),
-            rootViewController: dataVC
-        )
-        
-        dataVC.imagesByLabel = ImagesByLabel(dataset: trainingDataset)
-        
-        
-        viewControllers = [settingsNavController, vegetableNavController, cameraNavController, dataNavController]
+        viewControllers = [settingsNavController, vegetableNavController, cameraNavController]
         selectedIndex = 1
         tabBar.tintColor = .label
     }

@@ -51,6 +51,7 @@
 		847CC75826C2C3E000A867ED /* Extension + UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC75726C2C3E000A867ED /* Extension + UIImage.swift */; };
 		847CC75A26C2CABA00A867ED /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC75926C2CABA00A867ED /* Autolayout.swift */; };
 		847CC75C26C2D51500A867ED /* VegetableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CC75B26C2D51500A867ED /* VegetableCollectionView.swift */; };
+		8488C45A26CBEA08002EFF77 /* DataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8488C45926CBEA08002EFF77 /* DataView.swift */; };
 		84DB677A26C4256700658285 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB677926C4256700658285 /* Enums.swift */; };
 		84DB677C26C425A700658285 /* Extension + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB677B26C425A700658285 /* Extension + UIViewController.swift */; };
 /* End PBXBuildFile section */
@@ -102,6 +103,7 @@
 		847CC75726C2C3E000A867ED /* Extension + UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIImage.swift"; sourceTree = "<group>"; };
 		847CC75926C2CABA00A867ED /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Autolayout.swift; sourceTree = "<group>"; };
 		847CC75B26C2D51500A867ED /* VegetableCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegetableCollectionView.swift; sourceTree = "<group>"; };
+		8488C45926CBEA08002EFF77 /* DataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataView.swift; sourceTree = "<group>"; };
 		84DB677926C4256700658285 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		84DB677B26C425A700658285 /* Extension + UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,8 +122,8 @@
 		8460551526CA3C0E001AF9EE /* CoreML */ = {
 			isa = PBXGroup;
 			children = (
-				8460551C26CA3C6B001AF9EE /* Helpers.swift */,
 				8460551A26CA3C51001AF9EE /* ImageDataset.swift */,
+				8460551C26CA3C6B001AF9EE /* Helpers.swift */,
 				8460551826CA3C37001AF9EE /* ImageLoader.swift */,
 				8460552026CA3CCE001AF9EE /* Labels.swift */,
 				8460553926CA6B16001AF9EE /* Models.swift */,
@@ -147,11 +149,11 @@
 		8460552726CA4517001AF9EE /* Data screen */ = {
 			isa = PBXGroup;
 			children = (
+				8460552826CA4542001AF9EE /* DataViewController.swift */,
 				8460552E26CA5320001AF9EE /* ExampleCell.swift */,
 				8460552C26CA5320001AF9EE /* ExampleCell.xib */,
 				8460552D26CA5320001AF9EE /* SectionHeaderView.swift */,
 				8460552F26CA5320001AF9EE /* SectionHeaderView.xib */,
-				8460552826CA4542001AF9EE /* DataViewController.swift */,
 				8460552A26CA4571001AF9EE /* ImagesByLabel.swift */,
 			);
 			path = "Data screen";
@@ -169,9 +171,9 @@
 		8460555326CA71EA001AF9EE /* Evaluete */ = {
 			isa = PBXGroup;
 			children = (
+				8460554826CA71DC001AF9EE /* EvaluateViewController.swift */,
 				8460554B26CA71DC001AF9EE /* EvaluateCell.swift */,
 				8460554726CA71DC001AF9EE /* EvaluateCell.xib */,
-				8460554826CA71DC001AF9EE /* EvaluateViewController.swift */,
 				8460554A26CA71DC001AF9EE /* SummaryHeaderView.swift */,
 				8460554C26CA71DC001AF9EE /* SummaryHeaderView.xib */,
 			);
@@ -239,6 +241,7 @@
 				847CC75326C2C2F800A867ED /* VegetableCollectionViewCell.swift */,
 				847CC75B26C2D51500A867ED /* VegetableCollectionView.swift */,
 				8460551326CA367D001AF9EE /* SettingsView.swift */,
+				8488C45926CBEA08002EFF77 /* DataView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				8460551726CA3C1A001AF9EE /* Predictor.swift in Sources */,
 				847CC74E26C2BA6300A867ED /* VegetableVC.swift in Sources */,
 				847CC74C26C2BA4400A867ED /* CameraVC.swift in Sources */,
+				8488C45A26CBEA08002EFF77 /* DataView.swift in Sources */,
 				84DB677C26C425A700658285 /* Extension + UIViewController.swift in Sources */,
 				8460553126CA5320001AF9EE /* SectionHeaderView.swift in Sources */,
 				847CC75426C2C2F800A867ED /* VegetableCollectionViewCell.swift in Sources */,

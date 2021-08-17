@@ -15,16 +15,20 @@ class SettingsVC: UIViewController {
     let menu = [
         SettingsMenuSection(
             sectionName: "Dataset",
-            items: [SettingsMenuItem(itemName: "Training Data", settingsType: .router(router: .trainingData)),
-                    SettingsMenuItem(itemName: "Testing Data", settingsType: .router(router: .testingData)),
+            items: [SettingsMenuItem(itemName: "Training Data",
+                                     settingsType: .router(router: .trainingData)),
+                    SettingsMenuItem(itemName: "Testing Data",
+                                     settingsType: .router(router: .testingData)),
                     SettingsMenuItem(itemName: "Load Built-in Dataset",
                                      itemColor: Color(.systemYellow),
                                      settingsType: .button(type: .loadDataSet))]
         ),
         SettingsMenuSection(
             sectionName: "Neural Network",
-            items: [SettingsMenuItem(itemName: "Train", settingsType: .router(router: .train)),
-                    SettingsMenuItem(itemName: "Evaluate", settingsType: .router(router: .evaluate)),
+            items: [SettingsMenuItem(itemName: "Train",
+                                     settingsType: .router(router: .train)),
+                    SettingsMenuItem(itemName: "Evaluate",
+                                     settingsType: .router(router: .evaluate)),
                     SettingsMenuItem(itemName: "Keep Training in Background",
                                      settingsType: .toogle),
                     SettingsMenuItem(itemName: "Reset to Empty Model",
@@ -60,14 +64,16 @@ class SettingsVC: UIViewController {
     }
     
     @objc func trainingDataTapped() {
-        let trainingDataVC = DataViewController()
-        trainingDataVC.imagesByLabel = ImagesByLabel(dataset: trainingDataset)
+        let trainingImagesByLabel = ImagesByLabel(dataset: trainingDataset)
+        let trainingDataVC = DataViewController(barTitle: "Training Data",
+                                                imagesByLabel: trainingImagesByLabel)
         navigationController?.pushViewController(trainingDataVC, animated: true)
     }
     
     @objc func testingDataTapped() {
-        let testingDataVC = DataViewController()
-        testingDataVC.imagesByLabel = ImagesByLabel(dataset: testingDataset)
+        let testingImagesByLabel = ImagesByLabel(dataset: testingDataset)
+        let testingDataVC = DataViewController(barTitle: "Testing Data",
+                                               imagesByLabel: testingImagesByLabel)
         navigationController?.pushViewController(testingDataVC, animated: true)
     }
     
@@ -155,7 +161,7 @@ class SettingsVC: UIViewController {
         view.addSubview(settingsCtrl.view)
         
         settingsCtrl.view.anchor(
-            top: view.safeAreaLayoutGuide.topAnchor,
+            top: view.topAnchor,
             leading: view.safeAreaLayoutGuide.leftAnchor,
             bottom: view.safeAreaLayoutGuide.bottomAnchor,
             trailing: view.safeAreaLayoutGuide.rightAnchor
