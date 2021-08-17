@@ -14,18 +14,9 @@ import UIKit
  "Train k-Nearest Neighbors" screen.
  */
 
-struct LabelSection: Identifiable {
-    let id = UUID()
-    var sectionLabel: String
-    var items: [UIImage?] = []
-}
-
-
 class ImagesByLabel {
     let dataset: ImageDataset
     private var groups: [String: [Int]] = [:]
-    
-//    private var labels = Labels()
     private var labelsArray: [LabelSection] = []
     
     init(dataset: ImageDataset) {
@@ -35,26 +26,6 @@ class ImagesByLabel {
     
     func getData() -> [LabelSection] {
         return labelsArray
-    }
-    
-    private func set() {
-        updateGroups()
-        labelsArray = labels.labelNames.map { label -> LabelSection in
-            let numberOfImages = numberOfImages(for: label)
-            var images: [UIImage] = []
-
-            for i in 0..<numberOfImages {
-                guard let image = image(for: label, at: i) else { break }
-                images.append(image)
-            }
-
-            let section = LabelSection(
-                sectionLabel: label,
-                items: images
-            )
-
-            return section
-        }
     }
     
     func addImage(_ image: UIImage, for label: String) {
@@ -74,19 +45,35 @@ class ImagesByLabel {
         set()
     }
     
+    func numberOfImages(for label: String) -> Int {
+        groups[label]!.count
+    }
+    
     private func updateGroups() {
         groups = [:]
-        for label in labels.labelNames {
+        for label in Globals.shared.labels.labelNames {
             groups[label] = dataset.images(withLabel: label)
         }
     }
-        
-//    var numberOfLabels: Int { labels.labelNames.count }
     
-//    func labelName(of group: Int) -> String { labels.labelNames[group] }
-    
-    func numberOfImages(for label: String) -> Int {
-        groups[label]!.count
+    private func set() {
+        updateGroups()
+        labelsArray = Globals.shared.labels.labelNames.map { label -> LabelSection in
+            let numberOfImages = numberOfImages(for: label)
+            var images: [UIImage] = []
+
+            for i in 0..<numberOfImages {
+                guard let image = image(for: label, at: i) else { break }
+                images.append(image)
+            }
+
+            let section = LabelSection(
+                sectionLabel: label,
+                items: images
+            )
+
+            return section
+        }
     }
     
     private func image(for label: String, at index: Int) -> UIImage? {

@@ -64,14 +64,14 @@ class SettingsVC: UIViewController {
     }
     
     @objc func trainingDataTapped() {
-        let trainingImagesByLabel = ImagesByLabel(dataset: trainingDataset)
+        let trainingImagesByLabel = ImagesByLabel(dataset: Globals.shared.trainingDataset)
         let trainingDataVC = DataViewController(barTitle: "Training Data",
                                                 imagesByLabel: trainingImagesByLabel)
         navigationController?.pushViewController(trainingDataVC, animated: true)
     }
     
     @objc func testingDataTapped() {
-        let testingImagesByLabel = ImagesByLabel(dataset: testingDataset)
+        let testingImagesByLabel = ImagesByLabel(dataset: Globals.shared.testingDataset)
         let testingDataVC = DataViewController(barTitle: "Testing Data",
                                                imagesByLabel: testingImagesByLabel)
         navigationController?.pushViewController(testingDataVC, animated: true)
@@ -80,15 +80,15 @@ class SettingsVC: UIViewController {
     @objc func trainTapped() {
         let trainVC = TrainNeuralNetworkViewController()
         trainVC.model = Models.loadTrainedNeuralNetwork()
-        trainVC.trainingDataset = trainingDataset
-        trainVC.validationDataset = testingDataset
+        trainVC.trainingDataset = Globals.shared.trainingDataset
+        trainVC.validationDataset = Globals.shared.testingDataset
         navigationController?.pushViewController(trainVC, animated: true)
     }
     
     @objc func evaluateTapped() {
-        let evaluateVC = EvaluateViewController()
-        evaluateVC.model = Models.loadTrainedNeuralNetwork()
-        evaluateVC.dataset = testingDataset
+        let model = Models.loadTrainedNeuralNetwork()
+        let dataSet = Globals.shared.testingDataset
+        let evaluateVC = EvaluateViewController(model: model!, dataset: dataSet)
         navigationController?.pushViewController(evaluateVC, animated: true)
     }
     
@@ -106,24 +106,24 @@ class SettingsVC: UIViewController {
     }
     
     @objc func loadDataSet() {
-        trainingDataset.copyBuiltInImages()
-        testingDataset.copyBuiltInImages()
+        Globals.shared.trainingDataset.copyBuiltInImages()
+        Globals.shared.testingDataset.copyBuiltInImages()
     }
     
     @objc func resetToEmpty() {
         Models.deleteTrainedNeuralNetwork()
         Models.copyEmptyNeuralNetwork()
-        history.delete()
+        Globals.shared.history.delete()
     }
     
     @objc func resetToTuri() {
         Models.deleteTrainedNeuralNetwork()
         Models.copyTuriNeuralNetwork()
-        history.delete()
+        Globals.shared.history.delete()
     }
     
     @objc func backgroundTrainingSwitchTapped(value: Bool) {
-        settings.isBackgroundTrainingEnabled = value
+        Globals.shared.settings.isBackgroundTrainingEnabled = value
     }
     
     

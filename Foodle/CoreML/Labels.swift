@@ -116,7 +116,7 @@ class Labels {
     and user-chosen labels.)
    */
   func internalLabel(for userLabel: String) -> String {
-    internalLabelNames[labels.labelIndices[userLabel]!]
+    internalLabelNames[Globals.shared.labels.labelIndices[userLabel]!]
   }
 }
 

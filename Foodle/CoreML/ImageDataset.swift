@@ -56,7 +56,7 @@ class ImageDataset {
     Creates the subfolders for the built-in labels, if they don't exist yet.
    */
   private func createBuiltinLabelFolders() {
-    for label in labels.builtinLabelNames {
+    for label in Globals.shared.labels.builtinLabelNames {
       createFolder(for: label)
     }
   }
@@ -76,7 +76,7 @@ class ImageDataset {
    */
   private func scanAllImageFiles() {
     examples = []
-    for label in labels.labelNames {
+    for label in Globals.shared.labels.labelNames {
       scanImageFiles(for: label)
     }
   }
@@ -147,7 +147,7 @@ extension ImageDataset {
       fatalError("Error: built-in dataset not found")
     }
 
-    for label in labels.builtinLabelNames {
+    for label in Globals.shared.labels.builtinLabelNames {
       for fromURL in fileURLs(at: baseURL.appendingPathComponent(label)) {
         let filename = fromURL.lastPathComponent
         let toURL = imageURL(for: label, filename: filename)

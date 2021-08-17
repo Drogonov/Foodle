@@ -34,9 +34,9 @@ class TrainNeuralNetworkViewController: UIViewController {
 
     stopButton.isEnabled = false
     statusLabel.text = "Paused"
-    augmentationSwitch.isOn = settings.isAugmentationEnabled
+    augmentationSwitch.isOn = Globals.shared.settings.isAugmentationEnabled
 
-    learningRateSlider.value = Float(log10(settings.learningRate))
+    learningRateSlider.value = Float(log10(Globals.shared.settings.learningRate))
     learningRateLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .regular)
     updateLearningRateLabel()
 
@@ -96,16 +96,16 @@ class TrainNeuralNetworkViewController: UIViewController {
   }
 
   @IBAction func learningRateSliderMoved(_ sender: UISlider) {
-    settings.learningRate = pow(10, Double(sender.value))
+    Globals.shared.settings.learningRate = pow(10, Double(sender.value))
     updateLearningRateLabel()
   }
 
   @IBAction func augmentationSwitchTapped(_ sender: UISwitch) {
-    settings.isAugmentationEnabled = sender.isOn
+    Globals.shared.settings.isAugmentationEnabled = sender.isOn
   }
 
   func updateLearningRateLabel() {
-    learningRateLabel.text = String(String(format: "%.6f", settings.learningRate).prefix(8))
+    learningRateLabel.text = String(String(format: "%.6f", Globals.shared.settings.learningRate).prefix(8))
   }
 
   func updateButtons() {
@@ -129,7 +129,7 @@ extension TrainNeuralNetworkViewController {
     statusLabel.text = "Training..."
     updateButtons()
 
-    trainer.train(epochs: epochs, learningRate: settings.learningRate, callback: trainingCallback)
+    trainer.train(epochs: epochs, learningRate: Globals.shared.settings.learningRate, callback: trainingCallback)
   }
 
   func stopTraining() {
@@ -147,9 +147,9 @@ extension TrainNeuralNetworkViewController {
     DispatchQueue.main.async {
       switch callback {
       case let .epochEnd(trainLoss, valLoss, valAcc):
-        history.addEvent(trainLoss: trainLoss, validationLoss: valLoss, validationAccuracy: valAcc)
+        Globals.shared.history.addEvent(trainLoss: trainLoss, validationLoss: valLoss, validationAccuracy: valAcc)
 
-        let indexPath = IndexPath(row: history.count - 1, section: 0)
+        let indexPath = IndexPath(row: Globals.shared.history.count - 1, section: 0)
         self.tableView.insertRows(at: [indexPath], with: .fade)
         self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         self.graphView.update()
@@ -169,7 +169,7 @@ extension TrainNeuralNetworkViewController {
 
 extension TrainNeuralNetworkViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    history.count
+    Globals.shared.history.count
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -178,7 +178,7 @@ extension TrainNeuralNetworkViewController: UITableViewDataSource, UITableViewDe
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "ResultCell", for: indexPath)
-    cell.textLabel?.text = history.events[indexPath.row].displayString
+    cell.textLabel?.text = Globals.shared.history.events[indexPath.row].displayString
     return cell
   }
 

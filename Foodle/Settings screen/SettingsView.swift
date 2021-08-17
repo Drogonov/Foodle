@@ -7,19 +7,6 @@
 
 import SwiftUI
 
-struct SettingsMenuSection: Identifiable {
-    let id = UUID()
-    let sectionName: String
-    let items: [SettingsMenuItem]
-}
-
-struct SettingsMenuItem: Identifiable {
-    let id = UUID()
-    let itemName: String
-    var itemColor: Color = Color(.label)
-    var settingsType: SettingsType
-}
-
 struct SettingsView: View {
     @State private var isBackgroundTrainingEnabled: Bool = false
     var menu: [SettingsMenuSection]

@@ -166,7 +166,7 @@ extension Predictor {
           // Core ML will put the hardcoded class names into the predicted
           // probabilities dictionary. But the true labels from ImageDataset
           // are the ones chosen by the user.
-          let trueLabelInMLModel = labels.internalLabel(for: trueLabel)
+            let trueLabelInMLModel = Globals.shared.labels.internalLabel(for: trueLabel)
 
           // Compute the accuracy.
           if predictedLabel == trueLabelInMLModel { correctCount += 1 }
