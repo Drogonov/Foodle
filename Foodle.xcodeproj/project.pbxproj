@@ -50,6 +50,8 @@
 		8488C45A26CBEA08002EFF77 /* DataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8488C45926CBEA08002EFF77 /* DataView.swift */; };
 		8488C45F26CBEFC9002EFF77 /* LabelSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8488C45E26CBEFC9002EFF77 /* LabelSection.swift */; };
 		8488C46126CBEFFA002EFF77 /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8488C46026CBEFFA002EFF77 /* SettingsSection.swift */; };
+		84DA3D4B26CD4D37000014E4 /* TrainNNControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA3D4A26CD4D37000014E4 /* TrainNNControlsView.swift */; };
+		84DA3D4D26CD4D61000014E4 /* TrainNNTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA3D4C26CD4D61000014E4 /* TrainNNTableView.swift */; };
 		84DB677A26C4256700658285 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB677926C4256700658285 /* Enums.swift */; };
 		84DB677C26C425A700658285 /* Extension + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB677B26C425A700658285 /* Extension + UIViewController.swift */; };
 /* End PBXBuildFile section */
@@ -100,6 +102,8 @@
 		8488C45926CBEA08002EFF77 /* DataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataView.swift; sourceTree = "<group>"; };
 		8488C45E26CBEFC9002EFF77 /* LabelSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelSection.swift; sourceTree = "<group>"; };
 		8488C46026CBEFFA002EFF77 /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
+		84DA3D4A26CD4D37000014E4 /* TrainNNControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainNNControlsView.swift; sourceTree = "<group>"; };
+		84DA3D4C26CD4D61000014E4 /* TrainNNTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainNNTableView.swift; sourceTree = "<group>"; };
 		84DB677926C4256700658285 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		84DB677B26C425A700658285 /* Extension + UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,7 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				8460553E26CA71CE001AF9EE /* TrainNeuralNetworkViewController.swift */,
+				84DA3D4A26CD4D37000014E4 /* TrainNNControlsView.swift */,
 				8460553F26CA71CE001AF9EE /* GraphView.swift */,
+				84DA3D4C26CD4D61000014E4 /* TrainNNTableView.swift */,
 				8460553D26CA71CE001AF9EE /* NeuralNetworkTrainer.swift */,
 				8460554126CA71CE001AF9EE /* TrainingBatchProvider.swift */,
 				8460552326CA3D10001AF9EE /* History.swift */,
@@ -366,11 +372,13 @@
 				8460551726CA3C1A001AF9EE /* Predictor.swift in Sources */,
 				847CC74E26C2BA6300A867ED /* VegetableVC.swift in Sources */,
 				847CC74C26C2BA4400A867ED /* CameraVC.swift in Sources */,
+				84DA3D4B26CD4D37000014E4 /* TrainNNControlsView.swift in Sources */,
 				8488C45A26CBEA08002EFF77 /* DataView.swift in Sources */,
 				84DB677C26C425A700658285 /* Extension + UIViewController.swift in Sources */,
 				847CC75426C2C2F800A867ED /* VegetableCollectionViewCell.swift in Sources */,
 				8488C45F26CBEFC9002EFF77 /* LabelSection.swift in Sources */,
 				8460552426CA3D10001AF9EE /* History.swift in Sources */,
+				84DA3D4D26CD4D61000014E4 /* TrainNNTableView.swift in Sources */,
 				8460553C26CA6BF7001AF9EE /* Settings.swift in Sources */,
 				8488C46126CBEFFA002EFF77 /* SettingsSection.swift in Sources */,
 				8460551926CA3C37001AF9EE /* ImageLoader.swift in Sources */,

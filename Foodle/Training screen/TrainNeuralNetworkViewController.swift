@@ -6,51 +6,28 @@ import CoreML
  View controller for the "Training Neural Network" screen.
  */
 class TrainNeuralNetworkViewController: UIViewController {
-    @IBOutlet var oneEpochButton: UIButton!
-    @IBOutlet var tenEpochsButton: UIButton!
-    @IBOutlet var fiftyEpochsButton: UIButton!
-    @IBOutlet var stopButton: UIButton!
-    @IBOutlet var learningRateLabel: UILabel!
-    @IBOutlet var learningRateSlider: UISlider!
-    @IBOutlet var augmentationSwitch: UISwitch!
-    @IBOutlet var statusLabel: UILabel!
-    @IBOutlet var tableView: UITableView!
-    @IBOutlet var headerLabel: UILabel!
-//    @IBOutlet var graphView: GraphView!
-    
-
-    
     
     // MARK: - Properties
-    
     var model: MLModel!
     var trainingDataset: ImageDataset!
     var validationDataset: ImageDataset!
     var trainer: NeuralNetworkTrainer!
     var isTraining = false
     
+    
     var graphView = GraphView()
+    private var barTitle: String = "Train Neural Network"
+    
+    @State var learningRateValue: Double = log10(settings.learningRate)
+    @State var dataAugmentationIsOn: Bool = settings.isAugmentationEnabled
+    
+    @State var otherButtonsIsDisabled: Bool = false
+    @State var stopButtonIsDisabled: Bool = true
+    @State var statusLabelText: String = "Paused"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.rowHeight = 32
-        tableView.separatorInset = .zero
-        tableView.contentInset = .zero
-        
-        stopButton.isEnabled = false
-        statusLabel.text = "Paused"
-        augmentationSwitch.isOn = settings.isAugmentationEnabled
-        
-        learningRateSlider.value = Float(log10(settings.learningRate))
-        learningRateLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .regular)
-        updateLearningRateLabel()
-        
-        headerLabel.font = UIFont.monospacedSystemFont(ofSize: 12, weight: .regular)
-        headerLabel.sizeToFit()
-        
+        configureUI()
         trainer = NeuralNetworkTrainer(modelURL: Models.trainedNeuralNetworkURL,
                                        trainingDataset: trainingDataset,
                                        validationDataset: validationDataset,
@@ -87,54 +64,99 @@ class TrainNeuralNetworkViewController: UIViewController {
         stopTraining()
     }
     
-    @IBAction func oneEpochTapped(_ sender: Any) {
-        startTraining(epochs: 1)
-    }
-    
-    @IBAction func tenEpochsTapped(_ sender: Any) {
-        startTraining(epochs: 10)
-    }
-    
-    @IBAction func fiftyEpochsTapped(_ sender: Any) {
-        startTraining(epochs: 50)
-    }
-    
-    @IBAction func stopTapped(_ sender: Any) {
-        stopTraining()
-    }
-    
-    @IBAction func learningRateSliderMoved(_ sender: UISlider) {
-        settings.learningRate = pow(10, Double(sender.value))
-        updateLearningRateLabel()
-    }
-    
-    @IBAction func augmentationSwitchTapped(_ sender: UISwitch) {
-        settings.isAugmentationEnabled = sender.isOn
-    }
-    
-    func updateLearningRateLabel() {
-        learningRateLabel.text = String(String(format: "%.6f", settings.learningRate).prefix(8))
-    }
-    
     func updateButtons() {
-        oneEpochButton.isEnabled = !isTraining
-        tenEpochsButton.isEnabled = !isTraining
-        fiftyEpochsButton.isEnabled = !isTraining
-        learningRateSlider.isEnabled = !isTraining
-        augmentationSwitch.isEnabled = !isTraining
-        stopButton.isEnabled = isTraining
+        otherButtonsIsDisabled = isTraining
+        stopButtonIsDisabled = !isTraining
+    }
+    
+    func configureUI() {
+        configureNavigationBar()
+        configureControls()
+    }
+    
+    func configureNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.title = barTitle
+    }
+    
+    func configureControls() {
+        let controls = TrainNNControlsView(
+            learningRateValue: $learningRateValue,
+            dataAugmentationIsOn: $dataAugmentationIsOn,
+            statusLabelText: $statusLabelText,
+
+            otherButtonsIsDisabled: $otherButtonsIsDisabled,
+            stopButtonIsDisabled: $stopButtonIsDisabled,
+            
+            oneEpochTapped: {
+                self.startTraining(epochs: 1)
+            },
+            tenEpochTapped: {
+                self.startTraining(epochs: 10)
+            },
+            fiftyEpochTapped: {
+                self.startTraining(epochs: 50)
+            },
+            stopTapped: {
+                self.stopTraining()
+            },
+            learningRateSliderMoved: { value in
+                settings.learningRate = pow(10, Double(value))
+            },
+            augmentationSwitchTapped: { value in
+                settings.isAugmentationEnabled = value
+            }
+        )
+        
+        let controlsCtrl = UIHostingController(rootView: controls)
+        addChild(controlsCtrl)
+        view.addSubview(controlsCtrl.view)
+        controlsCtrl.didMove(toParent: self)
+        
+        controlsCtrl.view.anchor(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            leading: view.safeAreaLayoutGuide.leftAnchor,
+            trailing: view.safeAreaLayoutGuide.rightAnchor, height: 200
+        )
+        
+        view.addSubview(graphView)
+        graphView.anchor(
+            top: controlsCtrl.view.bottomAnchor,
+            leading: view.safeAreaLayoutGuide.leftAnchor,
+            trailing: view.safeAreaLayoutGuide.rightAnchor,
+            paddingLeft: 16,
+            paddingRight: 16,
+            height: 200
+        )
+        
+        graphView.backgroundColor = .secondarySystemBackground
+        graphView.layer.cornerRadius = 10
+        
+        let tableView = TrainNNTableView(history: history)
+        
+        let tableViewCtrl = UIHostingController(rootView: tableView)
+        addChild(tableViewCtrl)
+        view.addSubview(tableViewCtrl.view)
+        tableViewCtrl.didMove(toParent: self)
+        
+        tableViewCtrl.view.anchor(
+            top: graphView.bottomAnchor,
+            leading: view.safeAreaLayoutGuide.leftAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            trailing: view.safeAreaLayoutGuide.rightAnchor
+        )
     }
 }
 
 extension TrainNeuralNetworkViewController {
     func startTraining(epochs: Int) {
         guard trainingDataset.count > 0 else {
-            statusLabel.text = "No training images"
+            statusLabelText = "No training images"
             return
         }
         
         isTraining = true
-        statusLabel.text = "Training..."
+        statusLabelText = "Training..."
         updateButtons()
         
         trainer.train(epochs: epochs, learningRate: settings.learningRate, callback: trainingCallback)
@@ -147,7 +169,7 @@ extension TrainNeuralNetworkViewController {
     
     func trainingStopped() {
         isTraining = false
-        statusLabel.text = "Paused"
+        statusLabelText = "Paused"
         updateButtons()
     }
     
@@ -156,10 +178,6 @@ extension TrainNeuralNetworkViewController {
             switch callback {
             case let .epochEnd(trainLoss, valLoss, valAcc):
                 history.addEvent(trainLoss: trainLoss, validationLoss: valLoss, validationAccuracy: valAcc)
-                
-                let indexPath = IndexPath(row: history.count - 1, section: 0)
-                self.tableView.insertRows(at: [indexPath], with: .fade)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
                 self.graphView.update()
                 
             case .completed(let updatedModel):
@@ -174,122 +192,3 @@ extension TrainNeuralNetworkViewController {
         }
     }
 }
-
-extension TrainNeuralNetworkViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        history.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        32
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ResultCell", for: indexPath)
-        cell.textLabel?.text = history.events[indexPath.row].displayString
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.textLabel?.font = UIFont.monospacedSystemFont(ofSize: 12, weight: .regular)
-    }
-}
-
-fileprivate extension History.Event {
-    var displayString: String {
-        var s = String(format: "%5d   ", epoch + 1)
-        s += String(String(format: "%6.4f", trainLoss).prefix(6))
-        s += "   "
-        s += String(String(format: "%6.4f", validationLoss).prefix(6))
-        s += "     "
-        s += String(String(format: "%5.2f", validationAccuracy * 100).prefix(5))
-        return s
-    }
-}
-
-struct TrainNNControlsView: View {
-    var oneEpochTapped:() -> Void
-    var tenEpochTapped:() -> Void
-    var fiftyEpochTapped:() -> Void
-    var stopTapped:() -> Void
-    
-    @State var learningRateValue: Double = 0.0001
-    @State var dataAugmentationIsOn: Bool = true
-    @State var statusLabelText: String = "Paused"
-    
-    public var body: some View {
-        VStack {
-            epochButtons()
-            controls()
-        }
-    }
-    
-    private func epochButtons() -> some View {
-        HStack(spacing: 20) {
-            Spacer()
-            Button(action: {
-                oneEpochTapped()
-            },
-            label: {
-                Text("1 Epoch")
-            })
-            Button(action: {
-                tenEpochTapped()
-            },
-            label: {
-                Text("10 Epoch")
-            })
-            Button(action: {
-                fiftyEpochTapped()
-            },
-            label: {
-                Text("50 Epoch")
-            })
-            Button(action: {
-                stopTapped()
-            },
-            label: {
-                Text("Stop")
-            })
-            Spacer()
-        }
-    }
-    
-    private func controls() -> some View {
-        VStack {
-            HStack {
-                let text = "Learning rate \(String(format: "%.6f", learningRateValue).prefix(8))"
-                Slider(value: $learningRateValue, in: 0.000001...1.000000, label: {
-                    Text(text)
-                })
-            }
-            HStack {
-                Toggle("Data augmentation", isOn: $dataAugmentationIsOn)
-            }
-            Text(statusLabelText)
-        }
-    }
-}
-
-struct TrainNNTableView: View {
-    @State var history: History = History()
-    
-    public var body: some View {
-        VStack {
-            HStack(spacing: 10) {
-                Text("epoch")
-                Text("tr.loss")
-                Text("val.loss")
-                Text("val.acc")
-            }
-            
-            List {
-                ForEach(history.events.indices, id: \.self) { index in
-                    Text(history.events[index].displayString)
-                }
-            }
-        }
-    }
-}
-
-

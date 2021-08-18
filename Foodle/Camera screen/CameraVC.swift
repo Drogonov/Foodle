@@ -16,16 +16,24 @@ class CameraVC: UIViewController {
     var textView = UITextView()
     let barTitle: String = "Camera"
     
-    var model: MLModel!
-    var predictor: Predictor!
+    var model: MLModel
+    var predictor: Predictor
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        textView.text = "Use the camera to take a photo."
-        predictor = Predictor(model: model)
+    }
+
+    init() {
+        self.model = Models.loadTrainedNeuralNetwork()!
+        self.predictor = Predictor(model: model)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Selectors
@@ -99,6 +107,7 @@ class CameraVC: UIViewController {
     }
     
     func configureTextView() {
+        textView.text = "Use the camera to take a photo."
         textView.font = UIFont.boldSystemFont(ofSize: 18)
         textView.textAlignment = .center
         textView.showsVerticalScrollIndicator = false

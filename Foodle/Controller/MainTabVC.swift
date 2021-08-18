@@ -48,7 +48,6 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
             selectedImage: UIImage().systemImage(withSystemName: "camera.fill"),
             rootViewController: cameraVC
         )
-        cameraVC.model = Models.loadTrainedNeuralNetwork()
         
         viewControllers = [settingsNavController, vegetableNavController, cameraNavController]
         selectedIndex = 1
