@@ -4,25 +4,28 @@
 //
 //  Created by Anton Vlezko on 17.08.2021.
 //
-
+import Combine
 import SwiftUI
 
 struct DataView: View {
-    var sections: [LabelSection]
+    @ObservedObject var imagesByLabel: ImagesByLabel
+//    @Binding var labelsArray: [LabelSection]
     var deleteTapped:(String, Int) -> Void
     var takePicture: (Int) -> Void
     var choosePhoto: (Int) -> Void
     
     public var body: some View {
         List {
-            ForEach(sections.indices, id: \.self) { sectionIndex in
+            ForEach(imagesByLabel.labelsArray.indices, id: \.self) { sectionIndex in
                 Section(header: header(index: sectionIndex)) {
-                    ForEach(sections[sectionIndex].items.indices, id: \.self) { index in
+                    ForEach(imagesByLabel.labelsArray[sectionIndex].items.indices,
+                            id: \.self) { index in
                         imageCell(sectionIndex: sectionIndex, index: index)
                     }
                     .onDelete(perform: { row in
                         guard let rowIndex = row.first else { return }
-                        deleteTapped(sections[sectionIndex].sectionLabel, rowIndex)
+                        deleteTapped(imagesByLabel.labelsArray[sectionIndex].sectionLabel, rowIndex)
+            
                     })
                 }
             }
@@ -34,8 +37,9 @@ struct DataView: View {
         HStack {
             cameraButton(index: index)
             Spacer()
-            Text(sections[index].sectionLabel)
+            Text(imagesByLabel.labelsArray[index].sectionLabel)
                 .font(.system(size: 32))
+            
             Spacer()
             galeryButton(index: index)
         }
@@ -67,7 +71,8 @@ struct DataView: View {
     private func imageCell(sectionIndex: Int, index: Int) -> some View {
         HStack() {
             Spacer()
-            if let image = sections[sectionIndex].items[index] {
+            if let image = imagesByLabel.labelsArray[sectionIndex].items[index]
+            {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()

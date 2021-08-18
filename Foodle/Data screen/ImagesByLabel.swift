@@ -14,14 +14,14 @@ import UIKit
  "Train k-Nearest Neighbors" screen.
  */
 
-class ImagesByLabel {
+class ImagesByLabel: ObservableObject {
     let dataset: ImageDataset
     private var groups: [String: [Int]] = [:]
-    private var labelsArray: [LabelSection] = []
+    @Published var labelsArray: [LabelSection] = []
     
     init(dataset: ImageDataset) {
         self.dataset = dataset
-        set()
+        self.labelsArray = set()
     }
     
     func getData() -> [LabelSection] {
@@ -34,7 +34,7 @@ class ImagesByLabel {
         // The new image is always added at the end, so we can simply append
         // the new index to the group for this label.
         groups[label]!.append(dataset.count - 1)
-        set()
+        labelsArray = set()
     }
     
     func removeImage(for label: String, at index: Int) {
@@ -42,7 +42,7 @@ class ImagesByLabel {
         
         // All the image indices following the deleted image are now off by one,
         // so recompute all the groups.
-        set()
+        labelsArray = set()
     }
     
     func numberOfImages(for label: String) -> Int {
@@ -54,11 +54,12 @@ class ImagesByLabel {
         for label in labels.labelNames {
             groups[label] = dataset.images(withLabel: label)
         }
+        debugPrint(groups)
     }
     
-    private func set() {
+    private func set() -> [LabelSection] {
         updateGroups()
-        labelsArray = labels.labelNames.map { label -> LabelSection in
+        return labels.labelNames.map { label -> LabelSection in
             let numberOfImages = numberOfImages(for: label)
             var images: [UIImage] = []
 

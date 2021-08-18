@@ -14,7 +14,7 @@ import SwiftUI
 class DataViewController: UIViewController {
     
     // MARK: - Properties
-    private var imagesByLabel: ImagesByLabel
+    @ObservedObject private var imagesByLabel: ImagesByLabel
     private var barTitle: String
         
     // MARK: - Lyfecycle
@@ -51,7 +51,8 @@ class DataViewController: UIViewController {
     
     func configureData() {
         let dataView = DataView(
-            sections: imagesByLabel.getData(),
+            imagesByLabel: imagesByLabel,
+//            labelsArray: $imagesByLabel.labelsArray,
             deleteTapped: { label, index in
                 self.deleteRow(sectionLabel: label, index: index)
             },
@@ -66,6 +67,7 @@ class DataViewController: UIViewController {
         let dataCtrl = UIHostingController(rootView: dataView)
         addChild(dataCtrl)
         view.addSubview(dataCtrl.view)
+        dataCtrl.didMove(toParent: self)
         
         dataCtrl.view.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
@@ -77,7 +79,6 @@ class DataViewController: UIViewController {
     
     func deleteRow(sectionLabel: String, index: Int) {
         imagesByLabel.removeImage(for: sectionLabel, at: index)
-        configureUI()
     }
     
     // MARK: - Choosing photos
@@ -114,6 +115,5 @@ extension DataViewController: UIImagePickerControllerDelegate, UINavigationContr
         // Add the image to the data model.
         let label = labels.labelNames[pickPhotoForSection]
         imagesByLabel.addImage(image, for: label)
-        configureUI()
     }
 }

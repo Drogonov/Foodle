@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 import CoreML
 
 /**
@@ -15,13 +16,20 @@ class TrainNeuralNetworkViewController: UIViewController {
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var headerLabel: UILabel!
-    @IBOutlet var graphView: GraphView!
+//    @IBOutlet var graphView: GraphView!
+    
+
+    
+    
+    // MARK: - Properties
     
     var model: MLModel!
     var trainingDataset: ImageDataset!
     var validationDataset: ImageDataset!
     var trainer: NeuralNetworkTrainer!
     var isTraining = false
+    
+    var graphView = GraphView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -198,3 +206,90 @@ fileprivate extension History.Event {
         return s
     }
 }
+
+struct TrainNNControlsView: View {
+    var oneEpochTapped:() -> Void
+    var tenEpochTapped:() -> Void
+    var fiftyEpochTapped:() -> Void
+    var stopTapped:() -> Void
+    
+    @State var learningRateValue: Double = 0.0001
+    @State var dataAugmentationIsOn: Bool = true
+    @State var statusLabelText: String = "Paused"
+    
+    public var body: some View {
+        VStack {
+            epochButtons()
+            controls()
+        }
+    }
+    
+    private func epochButtons() -> some View {
+        HStack(spacing: 20) {
+            Spacer()
+            Button(action: {
+                oneEpochTapped()
+            },
+            label: {
+                Text("1 Epoch")
+            })
+            Button(action: {
+                tenEpochTapped()
+            },
+            label: {
+                Text("10 Epoch")
+            })
+            Button(action: {
+                fiftyEpochTapped()
+            },
+            label: {
+                Text("50 Epoch")
+            })
+            Button(action: {
+                stopTapped()
+            },
+            label: {
+                Text("Stop")
+            })
+            Spacer()
+        }
+    }
+    
+    private func controls() -> some View {
+        VStack {
+            HStack {
+                let text = "Learning rate \(String(format: "%.6f", learningRateValue).prefix(8))"
+                Slider(value: $learningRateValue, in: 0.000001...1.000000, label: {
+                    Text(text)
+                })
+            }
+            HStack {
+                Toggle("Data augmentation", isOn: $dataAugmentationIsOn)
+            }
+            Text(statusLabelText)
+        }
+    }
+}
+
+struct TrainNNTableView: View {
+    @State var history: History = History()
+    
+    public var body: some View {
+        VStack {
+            HStack(spacing: 10) {
+                Text("epoch")
+                Text("tr.loss")
+                Text("val.loss")
+                Text("val.acc")
+            }
+            
+            List {
+                ForEach(history.events.indices, id: \.self) { index in
+                    Text(history.events[index].displayString)
+                }
+            }
+        }
+    }
+}
+
+

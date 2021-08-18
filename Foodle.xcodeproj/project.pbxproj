@@ -148,6 +148,7 @@
 				8460552826CA4542001AF9EE /* DataViewController.swift */,
 				8488C45926CBEA08002EFF77 /* DataView.swift */,
 				8460552A26CA4571001AF9EE /* ImagesByLabel.swift */,
+				8488C45E26CBEFC9002EFF77 /* LabelSection.swift */,
 			);
 			path = "Data screen";
 			sourceTree = "<group>";
@@ -195,7 +196,6 @@
 				8460550F26CA1EAA001AF9EE /* Dataset */,
 				8460553426CA5DCF001AF9EE /* Models */,
 				847CC74726C2B80000A867ED /* Controller */,
-				847CC74526C2B7F000A867ED /* Model */,
 				8488C45B26CBEEC8002EFF77 /* Settings screen */,
 				8488C45C26CBEEEF002EFF77 /* Vegetables screen */,
 				8488C45D26CBEF15002EFF77 /* Camera screen */,
@@ -222,16 +222,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		847CC74526C2B7F000A867ED /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				847CC75126C2C09600A867ED /* Vegetable.swift */,
-				8488C45E26CBEFC9002EFF77 /* LabelSection.swift */,
-				8488C46026CBEFFA002EFF77 /* SettingsSection.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		847CC74726C2B80000A867ED /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +246,7 @@
 		8488C45B26CBEEC8002EFF77 /* Settings screen */ = {
 			isa = PBXGroup;
 			children = (
+				8488C46026CBEFFA002EFF77 /* SettingsSection.swift */,
 				8460551326CA367D001AF9EE /* SettingsView.swift */,
 				8460551126CA2ADA001AF9EE /* SettingsVC.swift */,
 			);
@@ -265,6 +256,7 @@
 		8488C45C26CBEEEF002EFF77 /* Vegetables screen */ = {
 			isa = PBXGroup;
 			children = (
+				847CC75126C2C09600A867ED /* Vegetable.swift */,
 				847CC75326C2C2F800A867ED /* VegetableCollectionViewCell.swift */,
 				847CC75B26C2D51500A867ED /* VegetableCollectionView.swift */,
 				847CC74D26C2BA6300A867ED /* VegetableVC.swift */,
