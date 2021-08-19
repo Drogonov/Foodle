@@ -8,13 +8,8 @@
 import SwiftUI
 
 struct TrainNNControlsView: View {
-    @Binding var learningRateValue: Double
-    @Binding var dataAugmentationIsOn: Bool
-    @Binding var statusLabelText: String
-    
-    @Binding var otherButtonsIsDisabled: Bool
-    @Binding var stopButtonIsDisabled: Bool
-    
+    @ObservedObject var trainVM: TrainNeuralNetworkVM
+
     var oneEpochTapped:() -> Void
     var tenEpochTapped:() -> Void
     var fiftyEpochTapped:() -> Void
@@ -27,7 +22,7 @@ struct TrainNNControlsView: View {
         VStack(spacing: 16) {
             epochButtons()
             controls()
-            Text(statusLabelText)
+            Text(trainVM.statusLabelText)
         }
         .padding(16)
     }
@@ -41,49 +36,48 @@ struct TrainNNControlsView: View {
             label: {
                 Text("1 Epoch")
             })
-            .disabled(otherButtonsIsDisabled)
+            .disabled(trainVM.otherButtonsIsDisabled)
             Button(action: {
                 tenEpochTapped()
             },
             label: {
                 Text("10 Epoch")
             })
-            .disabled(otherButtonsIsDisabled)
+            .disabled(trainVM.otherButtonsIsDisabled)
             Button(action: {
                 fiftyEpochTapped()
             },
             label: {
                 Text("50 Epoch")
             })
-            .disabled(otherButtonsIsDisabled)
+            .disabled(trainVM.otherButtonsIsDisabled)
             Button(action: {
                 stopTapped()
             },
             label: {
                 Text("Stop")
             })
-            .disabled(stopButtonIsDisabled)
+            .disabled(trainVM.stopButtonIsDisabled)
             Spacer()
         }
     }
     
     private func controls() -> some View {
-        let text = "Learning rate \(String(format: "%.3f", learningRateValue).prefix(8))"
-        
-        return VStack {
+        VStack {
             HStack {
-                Text(text)
-                Slider(value: $learningRateValue,
+                Text("Learning rate ")
+                Text(String(format: "%.3f", trainVM.learningRateValue).prefix(8))
+                Slider(value: $trainVM.learningRateValue,
                        in: 0.001...1.000)
-                    .disabled(otherButtonsIsDisabled)
-                    .onChange(of: learningRateValue, perform: { value in
+                    .disabled(trainVM.otherButtonsIsDisabled)
+                    .onChange(of: trainVM.learningRateValue, perform: { value in
                         learningRateSliderMoved(value)
                     })
             }
             Toggle("Data augmentation",
-                   isOn: $dataAugmentationIsOn)
-                .disabled(otherButtonsIsDisabled)
-                .onChange(of: dataAugmentationIsOn, perform: { value in
+                   isOn: $trainVM.dataAugmentationIsOn)
+                .disabled(trainVM.otherButtonsIsDisabled)
+                .onChange(of: trainVM.dataAugmentationIsOn, perform: { value in
                     augmentationSwitchTapped(value)
                 })
         }

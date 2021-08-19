@@ -20,6 +20,8 @@ class EvaluateViewController: UITableViewController {
     var predictor: Predictor
     var predictions: [Prediction?] = []
     
+    private var barTitle: String = "Evaluate"
+    
     lazy var headerView: SummaryHeaderView = UINib(nibName: "SummaryHeaderView", bundle: nil)
         .instantiate(withOwner: self, options: nil)[0] as! SummaryHeaderView
     
@@ -41,7 +43,7 @@ class EvaluateViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureNavigationBar()
         headerView.label.text = ""
         
         let cellNib = UINib(nibName: "EvaluateCell", bundle: nil)
@@ -88,6 +90,10 @@ class EvaluateViewController: UITableViewController {
         
         // We quit the prediction loop if the user taps the back button.
         predictor.shouldCancel = true
+    }
+    
+    func configureNavigationBar() {
+        navigationItem.title = barTitle
     }
     
     // MARK: - Table view data source

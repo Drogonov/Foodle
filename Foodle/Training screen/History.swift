@@ -13,7 +13,7 @@ import Foundation
  This gets saved to history.json in the app's Documents folder.
  */
 class History: Codable, ObservableObject {
-    struct Event: Codable {
+    struct Event: Codable, Hashable {
         let epoch: Int
         let trainLoss: Double
         let validationLoss: Double

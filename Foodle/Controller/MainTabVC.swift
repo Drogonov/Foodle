@@ -19,6 +19,10 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+        
+        Models.copyEmptyNearestNeighbors()
+        Models.copyEmptyNeuralNetwork()
+        
         configureUI()
     }
     

@@ -64,30 +64,34 @@ class SettingsVC: UIViewController {
     }
     
     @objc func trainingDataTapped() {
-        let trainingImagesByLabel = ImagesByLabel(dataset: Globals.shared.trainingDataset)
+        let trainingImagesByLabel = ImagesByLabel(dataset: trainingDataset)
         let trainingDataVC = DataViewController(barTitle: "Training Data",
                                                 imagesByLabel: trainingImagesByLabel)
         navigationController?.pushViewController(trainingDataVC, animated: true)
     }
     
     @objc func testingDataTapped() {
-        let testingImagesByLabel = ImagesByLabel(dataset: Globals.shared.testingDataset)
+        let testingImagesByLabel = ImagesByLabel(dataset: testingDataset)
         let testingDataVC = DataViewController(barTitle: "Testing Data",
                                                imagesByLabel: testingImagesByLabel)
         navigationController?.pushViewController(testingDataVC, animated: true)
     }
     
     @objc func trainTapped() {
-        let trainVC = TrainNeuralNetworkViewController()
-        trainVC.model = Models.loadTrainedNeuralNetwork()
-        trainVC.trainingDataset = Globals.shared.trainingDataset
-        trainVC.validationDataset = Globals.shared.testingDataset
+        let trainingDataset = trainingDataset
+        let validationDataset = testingDataset
+        let trainVC = TrainNeuralNetworkVC(trainingDataset: trainingDataset,
+                                           validationDataset: validationDataset)
+//        let trainVC = TrainNeuralNetworkViewController()
+//        trainVC.model = Models.loadTrainedNeuralNetwork()
+//        trainVC.trainingDataset = trainingDataset
+//        trainVC.validationDataset = validationDataset
         navigationController?.pushViewController(trainVC, animated: true)
     }
     
     @objc func evaluateTapped() {
         let model = Models.loadTrainedNeuralNetwork()
-        let dataSet = Globals.shared.testingDataset
+        let dataSet = testingDataset
         let evaluateVC = EvaluateViewController(model: model!, dataset: dataSet)
         navigationController?.pushViewController(evaluateVC, animated: true)
     }
@@ -106,8 +110,8 @@ class SettingsVC: UIViewController {
     }
     
     @objc func loadDataSet() {
-        Globals.shared.trainingDataset.copyBuiltInImages()
-        Globals.shared.testingDataset.copyBuiltInImages()
+        trainingDataset.copyBuiltInImages()
+        testingDataset.copyBuiltInImages()
     }
     
     @objc func resetToEmpty() {
