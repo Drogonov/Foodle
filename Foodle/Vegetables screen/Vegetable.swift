@@ -40,4 +40,17 @@ extension VegetableViewModel {
             return cell
         }
     }
+    
+    init(labels: [Label]) {
+        self.cells = labels.map { vegetable -> Cell in
+            let cell = Cell(
+                id: vegetable.id,
+                statusButtonColor: UIColor.gray,
+                vegetableImage: nil,
+                vegetableEmoji: vegetable.labelEmoji.first,
+                vegetableName: vegetable.labelName
+            )
+            return cell
+        }
+    }
 }

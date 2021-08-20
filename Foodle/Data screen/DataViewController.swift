@@ -113,7 +113,7 @@ extension DataViewController: UIImagePickerControllerDelegate, UINavigationContr
         let image = info[UIImagePickerController.InfoKey.editedImage] as! UIImage
         
         // Add the image to the data model.
-        let label = labels.labelNames[pickPhotoForSection]
-        imagesByLabel.addImage(image, for: label)
+        let label = labels.labelsArray[pickPhotoForSection]
+        imagesByLabel.addImage(image, for: label.labelEmoji)
     }
 }

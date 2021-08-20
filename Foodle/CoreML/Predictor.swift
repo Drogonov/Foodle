@@ -157,7 +157,7 @@ extension Predictor {
       if let batchPredictions = predict(batch: batch) {
         for (i, (j, _)) in batch.enumerated() {
           let predictedLabel = batchPredictions[i].label
-          let trueLabel = loader.dataset.label(at: j)
+            let trueLabel = loader.dataset.label(at: j)
           exampleCount += 1
 
           // Because the user can choose their own labels, but the mlmodel

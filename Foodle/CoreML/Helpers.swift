@@ -32,6 +32,10 @@ func createDirectory(at url: URL) {
   try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
 }
 
+func deleteDirectory(at url: URL) {
+    try? FileManager.default.removeItem(at: url)
+}
+
 func contentsOfDirectory(at url: URL) -> [URL]? {
   try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
 }

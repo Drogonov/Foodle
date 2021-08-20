@@ -51,25 +51,25 @@ class ImagesByLabel: ObservableObject {
     
     private func updateGroups() {
         groups = [:]
-        for label in labels.labelNames {
-            groups[label] = dataset.images(withLabel: label)
+        for label in labels.labelsArray {
+            groups[label.labelEmoji] = dataset.images(withLabel: label.labelEmoji)
         }
         debugPrint(groups)
     }
     
     private func set() -> [LabelSection] {
         updateGroups()
-        return labels.labelNames.map { label -> LabelSection in
-            let numberOfImages = numberOfImages(for: label)
+        return labels.labelsArray.map { label -> LabelSection in
+            let numberOfImages = numberOfImages(for: label.labelEmoji)
             var images: [UIImage] = []
 
             for i in 0..<numberOfImages {
-                guard let image = image(for: label, at: i) else { break }
+                guard let image = image(for: label.labelEmoji, at: i) else { break }
                 images.append(image)
             }
 
             let section = LabelSection(
-                sectionLabel: label,
+                sectionLabel: label.labelEmoji,
                 items: images
             )
 

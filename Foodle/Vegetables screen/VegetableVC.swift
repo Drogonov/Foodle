@@ -11,12 +11,6 @@ class VegetableVC: UIViewController {
     // MARK: - Properties
     
     let barTitle: String = "Vegetable List"
-    var vegetables: [Vegetable] = [
-        Vegetable(name: "Tomato", image: nil, emoji: "🍅", modelStatus: .empty),
-        Vegetable(name: "Potato", image: nil, emoji: "🥔", modelStatus: .partlyFilled),
-        Vegetable(name: "Banana", image: nil, emoji: "🍌", modelStatus: .full),
-    ]
-    
     private var vegetablesViewModel = VegetableViewModel(cells: [])
     private var vegetableCollectionView = VegetableCollectionView()
     
@@ -24,21 +18,42 @@ class VegetableVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureVegetables()
         configureUI()
-        
     }
     
     // MARK: - Selectors
     
     func handleTapVegetable(vegetableID: UUID) {
-        guard let index = vegetables.firstIndex(where: {$0.id == vegetableID}) else { return }
-        let name: String = vegetables[index].name
+        guard let index = vegetablesViewModel.cells.firstIndex(where: {$0.id == vegetableID}) else { return }
+        let label = vegetablesViewModel.cells[index]
+        if labels.builtinLabels.contains(where: { $0.labelEmoji.first == label.vegetableEmoji }) {
+            configureStandartNotification(vegetableID: vegetableID, name: label.vegetableName)
+        } else {
+            configureDeleteNotification(vegetableID: vegetableID, name: label.vegetableName)
+        }
+    }
+    
+    func handleDeleteVegetable(vegetableID: UUID) {
+        guard let index = vegetablesViewModel.cells.firstIndex(where: {$0.id == vegetableID}) else { return }
+        let cell = vegetablesViewModel.cells[index]
+        if let emoji = vegetablesViewModel.cells[index].vegetableEmoji {
+            let label = Label(labelEmoji: String(emoji), labelName: cell.vegetableName)
+            labels.deleteLabel(label)
+            trainingDataset.createFolder(for: label.labelEmoji)
+            testingDataset.createFolder(for: label.labelEmoji)
+            configureVegetables()
+            debugPrint(vegetablesViewModel.cells)
+        }
+    }
+    
+    func configureDeleteNotification(vegetableID: UUID, name: String) {
         self.showNotification(title: "What do you whant to do with \(name)?",
                               defaultAction: true,
-                              defaultActionText: "cancel",
+                              defaultActionText: "Cancel",
                               rejectAction: true,
-                              rejectActionText: "delete") { config, _  in
+                              rejectActionText: "Delete") { config, _  in
             switch config {
             case .rejectAction:
                 self.handleDeleteVegetable(vegetableID: vegetableID)
@@ -47,19 +62,43 @@ class VegetableVC: UIViewController {
         }
     }
     
-    func handleDeleteVegetable(vegetableID: UUID) {
-        guard let index = vegetables.firstIndex(where: {$0.id == vegetableID}) else { return }
-        vegetables.remove(at: index)
-        configureVegetables()
-        debugPrint(vegetablesViewModel.cells)
+    func configureStandartNotification(vegetableID: UUID, name: String) {
+        self.showNotification(title: "What do you whant to do with \(name)?",
+                              defaultAction: true,
+                              defaultActionText: "Cancel") { config, _  in
+            switch config {
+            default: break
+            }
+        }
     }
     
+    func handleTapAddModel() {
+        self.configureAddModelAlert(
+            title: "Whant to add new model?",
+            message: "Pls enter both fields",
+            textFieldNamePlaceholder: "Enter Name",
+            textFieldEmojiPlaceholder: "Enter Emoji",
+            textFieldActionText: "Save",
+            rejectActionText: "Cancel") { config, vagetableName, vegetableEmoji in
+            switch config {
+            case .textField:
+                guard vagetableName != nil, vegetableEmoji != nil else { return }
+                let emoji: String.Element = vegetableEmoji!.first!
+                let label = Label(labelEmoji: String(emoji), labelName: vagetableName!)
+                labels.addLabel(label)
+                trainingDataset.createFolder(for: label.labelEmoji)
+                testingDataset.createFolder(for: label.labelEmoji)
+                self.configureVegetables()
+            default: break
+            }
+        }
+    }
     
     // MARK: - Helper Functions
     
     func configureVegetables() {
         vegetablesViewModel = VegetableViewModel(cells: [])
-        vegetablesViewModel = VegetableViewModel(vegetables: vegetables)
+        vegetablesViewModel = VegetableViewModel(labels: labels.labelsArray)
         vegetableCollectionView.set(vegatables: vegetablesViewModel.cells)
     }
     
@@ -86,7 +125,7 @@ class VegetableVC: UIViewController {
             bottom: view.safeAreaLayoutGuide.bottomAnchor,
             trailing: view.safeAreaLayoutGuide.rightAnchor
         )
-        vegetableCollectionView.set(vegatables: vegetablesViewModel.cells)
+        configureVegetables()
     }
 }
 
@@ -98,10 +137,8 @@ extension VegetableVC: VegetableCollectionViewDelegate {
     func handleVegetableButton(vegetableID: UUID?) {
         if vegetableID != nil {
             self.handleTapVegetable(vegetableID: vegetableID!)
-            debugPrint("handleVegetableButton \(vegetableID)")
         } else {
-            debugPrint("Add model tapped")
+            self.handleTapAddModel()
         }
-        
     }
 }
