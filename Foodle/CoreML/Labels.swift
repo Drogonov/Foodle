@@ -145,17 +145,19 @@ class Labels {
      and user-chosen labels.)
      */
     func internalLabel(for userLabel: String) -> String {
-        debugPrint("internalLabel \(userLabel)")
-                if let index = labelsArray.firstIndex(where: {$0.labelName == userLabel}) {
-                    let label = internalLabels[index]
-                    return internalLabels[labels.labelIndices[label]!].labelName
-                }
+        if let index = labelsArray.firstIndex(where: {$0.labelEmoji == userLabel}) {
+            let label = internalLabels[index]
+            if let idx = internalLabelIndices[label], idx < labelsArray.count {
+                debugPrint("return userLabel labelName \(internalLabels[idx].labelName)")
+                return internalLabels[idx].labelEmoji
+            } else {
+                debugPrint("return userLabel userLabel \(userLabel)")
                 return userLabel
-//        if let index = labelsArray.firstIndex(where: { $0.labelEmoji == userLabel }) {
-//            let label = labelsArray[index]
-//            return internalLabels[labels.labelIndices[label]!].labelName
-//
-//        }
+            }
+        } else {
+            debugPrint("userLabel \(userLabel)")
+            return userLabel
+        }
     }
 }
 
