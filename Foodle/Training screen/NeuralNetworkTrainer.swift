@@ -134,6 +134,7 @@ class NeuralNetworkTrainer {
         defer { self.updateTask = nil }
 
         print("Training completed with state \(context.task.state.rawValue)")
+        print("Training completed with state \(context.task)")
 
         // This happens when there is some kind of error, for example if the
         // batch provider returns an invalid MLFeatureProvider object.

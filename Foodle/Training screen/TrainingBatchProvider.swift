@@ -41,7 +41,7 @@ class TrainingBatchProvider: MLBatchProvider {
       return failure()
     }
 
-    return HandsEmptyTrainingInput(image: pixelBuffer, label: trueLabel)
+    return VegetablesEmptyTrainingInput(image: pixelBuffer, label: trueLabel)
   }
 
   private func failure() -> MLFeatureProvider {
