@@ -30,7 +30,7 @@ class NeuralNetworkTrainer {
     trainingLoader = ImageLoader(dataset: trainingDataset,
                                  augment: settings.isAugmentationEnabled,
                                  imageConstraint: imageConstraint)
-
+    
     // After each epoch, we'll try the updated model on the validation set.
     // NOTE: To see how the accuracy of the training set is affected during
     // training, use trainingDataset below instead of validationDataset:
@@ -49,7 +49,9 @@ class NeuralNetworkTrainer {
         trainingLoader.augment = settings.isAugmentationEnabled
 
       let trainingData = TrainingBatchProvider(imageLoader: trainingLoader)
-
+        
+        debugPrint("trainingData \(trainingData)")
+        
       // This is how we can change the hyperparameters before training. If you
       // don't do this, the defaults as defined in the mlmodel file are used.
       // Note that the values you choose here must match what is allowed in the
@@ -61,6 +63,8 @@ class NeuralNetworkTrainer {
         .learningRate: learningRate,
         //.shuffle: false,
       ]
+        
+        debugPrint("parameters \(parameters)")
 
       let config = MLModelConfiguration()
       config.computeUnits = .all

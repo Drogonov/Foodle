@@ -35,13 +35,17 @@ class TrainingBatchProvider: MLBatchProvider {
     }
 
     let trueLabel = imageLoader.dataset.label(at: index)
+    let label = labels.internalLabel(for: trueLabel)
+    
+    debugPrint("TrainingBatchProvider trueLabel \(trueLabel)")
+    debugPrint("TrainingBatchProvider label \(label)")
 
     guard let pixelBuffer = featureValue.imageBufferValue else {
       print("Could not get pixel buffer for image at \(index)")
       return failure()
     }
 
-    return VegetablesEmptyTrainingInput(image: pixelBuffer, label: trueLabel)
+    return VegetablesEmptyTrainingInput(image: pixelBuffer, label: label)
   }
 
   private func failure() -> MLFeatureProvider {

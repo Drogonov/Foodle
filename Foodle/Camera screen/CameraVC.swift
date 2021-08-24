@@ -46,6 +46,14 @@ class CameraVC: UIViewController {
         present(picker, animated: true)
     }
     
+    @objc func galleryTapped() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+    
     func predict(image: UIImage) {
         let constraint = imageConstraint(model: model)
 
@@ -94,6 +102,11 @@ class CameraVC: UIViewController {
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(cameraTapped))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage().systemImage(withSystemName: "folder"),
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(galleryTapped))
         
     }
     

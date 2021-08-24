@@ -90,7 +90,7 @@ class ImageDataset {
      */
     private func fileURLs(at url: URL) -> [URL] {
         contentsOfDirectory(at: url) { url in
-            url.pathExtension == "jpg" || url.pathExtension == "png"
+            url.pathExtension == "jpg" || url.pathExtension == "png" || url.pathExtension == "jpeg"
         }
     }
     

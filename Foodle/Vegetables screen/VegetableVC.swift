@@ -23,6 +23,10 @@ class VegetableVC: UIViewController {
         configureUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        configureVegetables()
+    }
+    
     // MARK: - Selectors
     
     func handleTapVegetable(vegetableID: UUID) {
@@ -41,11 +45,33 @@ class VegetableVC: UIViewController {
         if let emoji = vegetablesViewModel.cells[index].vegetableEmoji {
             let label = Label(labelEmoji: String(emoji), labelName: cell.vegetableName)
             labels.deleteLabel(label)
-            trainingDataset.createFolder(for: label.labelEmoji)
-            testingDataset.createFolder(for: label.labelEmoji)
+            trainingDataset.deleteFolder(for: label.labelEmoji)
+            testingDataset.deleteFolder(for: label.labelEmoji)
             configureVegetables()
             debugPrint(vegetablesViewModel.cells)
         }
+    }
+    
+    func handleTapStatusButton(vegetableID: UUID) {
+        guard let index = vegetablesViewModel.cells.firstIndex(where: {$0.id == vegetableID}) else { return }
+        let label = vegetablesViewModel.cells[index]
+        
+        let imageCount = trainingDataset.images(withLabel: String(label.vegetableEmoji!)).count
+        let testImageCount = testingDataset.images(withLabel: String(label.vegetableEmoji!)).count
+        
+        var title: String
+        switch imageCount {
+        case let x where x <= 5:
+            title = "It is not enought images to train model properly. Model start working fine with trainingDataset 10 (your score \(imageCount)), and testingDataset 5 (your score \(testImageCount))"
+        case let x where x <= 10 && x > 5:
+            title = "Amount of images could be higher but it is still okay. Model start working fine with trainingDataset 10 (your score \(imageCount)), and testingDataset 5 (your score \(testImageCount))"
+        case let x where x > 10:
+            title = "Model should work great. Model start working fine with trainingDataset 10 (your score \(imageCount)), and testingDataset 5 (your score \(testImageCount))"
+        default: title = "Not enought info smth goes wrong"
+        }
+
+        configureStatusLabelNotification(title: title)
+        
     }
     
     func configureDeleteNotification(vegetableID: UUID, name: String) {
@@ -66,6 +92,16 @@ class VegetableVC: UIViewController {
         self.showNotification(title: "What do you whant to do with \(name)?",
                               defaultAction: true,
                               defaultActionText: "Cancel") { config, _  in
+            switch config {
+            default: break
+            }
+        }
+    }
+    
+    func configureStatusLabelNotification(title: String) {
+        self.showNotification(title: title,
+                              defaultAction: true,
+                              defaultActionText: "Ok") { config, _  in
             switch config {
             default: break
             }
@@ -131,7 +167,8 @@ class VegetableVC: UIViewController {
 
 extension VegetableVC: VegetableCollectionViewDelegate {
     func handleStatusButton(vegetableID: UUID?) {
-        debugPrint("handleStatusButton with id \(vegetableID)")
+        guard let id = vegetableID else { return }
+        handleTapStatusButton(vegetableID: id)
     }
     
     func handleVegetableButton(vegetableID: UUID?) {

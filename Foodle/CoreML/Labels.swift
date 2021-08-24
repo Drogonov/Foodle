@@ -56,7 +56,7 @@ class Labels {
     // mlmodel are always the ones chosen by the user.
     lazy var internalLabels: [Label] = {
         builtinLabels + (0..<7).map { index -> Label in
-            let lb = Label(labelEmoji: "🐊",
+            let lb = Label(labelEmoji: "user\(index)",
                            labelName: "user\(index)")
             return lb
         }
@@ -115,6 +115,7 @@ class Labels {
     func deleteLabel(_ label: Label) {
         if let index = labelsArray.firstIndex(where: {$0.labelEmoji == label.labelEmoji}) {
             debugPrint("deleted")
+            debugPrint(labelsArray)
             labelsArray.remove(at: index)
             saveLabelNames()
         }
@@ -128,7 +129,7 @@ class Labels {
      */
     func userLabel(for internalLabel: String) -> String {
         debugPrint("internalLabel \(internalLabel)")
-        if let index = internalLabels.firstIndex(where: { $0.labelName == internalLabel }) {
+        if let index = internalLabels.firstIndex(where: { $0.labelEmoji == internalLabel }) {
             let label = internalLabels[index]
             if let idx = internalLabelIndices[label], idx < labelsArray.count {
                 return labelsArray[idx].labelEmoji
@@ -148,7 +149,7 @@ class Labels {
         if let index = labelsArray.firstIndex(where: {$0.labelEmoji == userLabel}) {
             let label = internalLabels[index]
             if let idx = internalLabelIndices[label], idx < labelsArray.count {
-                debugPrint("return userLabel labelName \(internalLabels[idx].labelName)")
+                debugPrint("return userLabel labelName \(internalLabels[idx].labelEmoji)")
                 return internalLabels[idx].labelEmoji
             } else {
                 debugPrint("return userLabel userLabel \(userLabel)")

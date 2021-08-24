@@ -43,9 +43,25 @@ extension VegetableViewModel {
     
     init(labels: [Label]) {
         self.cells = labels.map { vegetable -> Cell in
+              
+            var color: UIColor
+            
+            let colorCount = trainingDataset.images(withLabel: vegetable.labelEmoji).count
+            debugPrint(vegetable.labelEmoji)
+            debugPrint(colorCount)
+            switch colorCount {
+            case let x where x <= 5:
+                color = .red
+            case let x where x <= 10 && x > 5:
+                color = .yellow
+            case let x where x > 10:
+                color =  .green
+            default: color = .gray
+            }
+            
             let cell = Cell(
                 id: vegetable.id,
-                statusButtonColor: UIColor.gray,
+                statusButtonColor: color,
                 vegetableImage: nil,
                 vegetableEmoji: vegetable.labelEmoji.first,
                 vegetableName: vegetable.labelName
