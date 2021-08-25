@@ -9,7 +9,7 @@ import UIKit
 
 class VegetableVC: UIViewController {
     // MARK: - Properties
-    
+    @Inject var labels: Labels
     let barTitle: String = "Vegetable List"
     private var vegetablesViewModel = VegetableViewModel(cells: [])
     private var vegetableCollectionView = VegetableCollectionView()
@@ -121,7 +121,7 @@ class VegetableVC: UIViewController {
                 guard vagetableName != nil, vegetableEmoji != nil else { return }
                 let emoji: String.Element = vegetableEmoji!.first!
                 let label = Label(labelEmoji: String(emoji), labelName: vagetableName!)
-                labels.addLabel(label)
+                self.labels.addLabel(label)
                 trainingDataset.createFolder(for: label.labelEmoji)
                 testingDataset.createFolder(for: label.labelEmoji)
                 self.configureVegetables()

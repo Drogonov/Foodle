@@ -25,6 +25,11 @@ struct TrainNNControlsView: View {
             Text(trainVM.statusLabelText)
         }
         .padding(16)
+        .onAppear {
+            withAnimation(.easeInOut) {
+                trainVM.set()
+            }
+        }
     }
     
     private func epochButtons() -> some View {

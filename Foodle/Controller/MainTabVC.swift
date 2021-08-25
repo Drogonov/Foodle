@@ -13,9 +13,9 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     private lazy var settingsCollectionVC = SettingsVC()
     private lazy var vegetableCollectionVC = VegetableVC()
     private lazy var cameraVC = CameraVC()
-    
+        
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self

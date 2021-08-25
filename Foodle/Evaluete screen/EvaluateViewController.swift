@@ -13,7 +13,7 @@ class EvaluateViewController: UITableViewController {
     // To disable batch prediction, set this to 1.
     let batchSize = 4
     let inferenceQueue = DispatchQueue(label: "net.machinethink.gestures.InferenceQueue")
-    
+    @Inject var labels: Labels
     var model: MLModel
     var dataset: ImageDataset
     var imageLoader: ImageLoader

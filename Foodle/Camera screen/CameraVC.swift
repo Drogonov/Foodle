@@ -12,6 +12,7 @@ import Vision
 
 class CameraVC: UIViewController {
     // MARK: - Properties
+    @Inject var labels: Labels
     var imageView = UIImageView()
     var textView = UITextView()
     let barTitle: String = "Camera"

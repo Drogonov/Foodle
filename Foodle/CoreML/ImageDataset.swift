@@ -10,7 +10,8 @@ import UIKit
 /**
  A dataset is a list of all training or testing images and their true labels.
  */
-class ImageDataset {
+class ImageDataset: Injectable {
+    @Inject var labels: Labels
     enum Split {
         case train
         case test

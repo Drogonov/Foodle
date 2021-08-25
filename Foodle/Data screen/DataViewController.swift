@@ -14,6 +14,7 @@ import SwiftUI
 class DataViewController: UIViewController {
     
     // MARK: - Properties
+    @Inject var labels: Labels
     @ObservedObject private var imagesByLabel: ImagesByLabel
     private var barTitle: String
         

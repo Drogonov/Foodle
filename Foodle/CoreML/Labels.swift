@@ -17,7 +17,7 @@ struct Label: Hashable, Codable {
     var labelName: String
 }
 
-class Labels {
+class Labels: Injectable {
     let maxLabels = 10
     
     // The dataset always has these three labels but the user can add their own.

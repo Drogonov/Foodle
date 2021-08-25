@@ -33,6 +33,7 @@ struct TrainNNTableView: View {
                 }
                 .onAppear {
                     withAnimation(.easeInOut) {
+                        trainVM.set()
                         scrollView.scrollTo(trainVM.historyPublished.events.endIndex - 1)
                     }
                 }

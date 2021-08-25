@@ -1,6 +1,6 @@
 import Foundation
 
-class Settings {
+class Settings: Injectable {
   init() {
     UserDefaults.standard.register(defaults: [
       "learningRate": 0.001,

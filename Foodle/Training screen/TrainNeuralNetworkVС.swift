@@ -14,18 +14,35 @@ import CoreML
  */
 
 class TrainNeuralNetworkVM: ObservableObject {
-    @Published var learningRateValue: Double = log10(settings.learningRate)
-    @Published var dataAugmentationIsOn: Bool = settings.isAugmentationEnabled
+    @Inject var settings: Settings
+    @Inject var history: History
+    
+    @Published var learningRateValue: Double = 0
+    @Published var dataAugmentationIsOn: Bool = false
     
     @Published var otherButtonsIsDisabled: Bool = false
     @Published var stopButtonIsDisabled: Bool = true
     @Published var statusLabelText: String = "Paused"
-    @Published var historyPublished: History = history
+    @Published var historyPublished: History = History()
+    
+//    init() {
+//        learningRateValue = log10(settings.learningRate)
+//        dataAugmentationIsOn = settings.isAugmentationEnabled
+//        historyPublished = history
+//    }
+    func set() {
+        learningRateValue = log10(settings.learningRate)
+        dataAugmentationIsOn = settings.isAugmentationEnabled
+        historyPublished = history
+    }
+    
 }
 
 class TrainNeuralNetworkVC: UIViewController {
     
     // MARK: - Properties
+    @Inject var settings: Settings
+    @Inject var history: History
     var model: MLModel
     var trainingDataset: ImageDataset
     var validationDataset: ImageDataset
@@ -50,10 +67,10 @@ class TrainNeuralNetworkVC: UIViewController {
             self.stopTraining()
         },
         learningRateSliderMoved: { value in
-            settings.learningRate = value
+            self.settings.learningRate = value
         },
         augmentationSwitchTapped: { value in
-            settings.isAugmentationEnabled = value
+            self.settings.isAugmentationEnabled = value
         }
     )
     private lazy var controlsCtrl = UIHostingController(rootView: controls)
@@ -197,9 +214,8 @@ extension TrainNeuralNetworkVC {
         DispatchQueue.main.async {
             switch callback {
             case let .epochEnd(trainLoss, valLoss, valAcc):
-                history.addEvent(trainLoss: trainLoss, validationLoss: valLoss, validationAccuracy: valAcc)
-                self.trainVM.historyPublished = history
-
+                self.history.addEvent(trainLoss: trainLoss, validationLoss: valLoss, validationAccuracy: valAcc)
+                self.trainVM.historyPublished = self.history
                 debugPrint("epochEnd")
                 
             case .completed(let updatedModel):

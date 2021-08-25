@@ -15,6 +15,7 @@ import UIKit
  */
 
 class ImagesByLabel: ObservableObject {
+    @Inject var labels: Labels
     let dataset: ImageDataset
     private var groups: [String: [Int]] = [:]
     @Published var labelsArray: [LabelSection] = []

@@ -10,6 +10,10 @@ import SwiftUI
 
 class SettingsVC: UIViewController {
     // MARK: - Properties
+    @Inject var labels: Labels
+    @Inject var settings: Settings
+    @Inject var history: History
+    
     let barTitle: String = "Settings"
     
     let menu = [
@@ -46,6 +50,7 @@ class SettingsVC: UIViewController {
         super.viewDidLoad()
         configureUI()
         
+        debugPrint("history.events \(history.events)")
     }
     
     // MARK: - Routers

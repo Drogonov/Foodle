@@ -12,7 +12,7 @@ import Foundation
  
  This gets saved to history.json in the app's Documents folder.
  */
-class History: Codable, ObservableObject {
+class History: Codable, Injectable {
     struct Event: Codable, Hashable {
         let epoch: Int
         let trainLoss: Double
@@ -30,6 +30,10 @@ class History: Codable, ObservableObject {
         } catch {
             return History()
         }
+    }
+    
+    init() {
+        debugPrint("History.load() \(History.load())")
     }
     
     func addEvent(trainLoss: Double, validationLoss: Double, validationAccuracy: Double) {
