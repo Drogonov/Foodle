@@ -1,0 +1,22 @@
+Сначала скачиваем и устанавливаем anaconda 
+https://www.anaconda.com/products/individual
+
+1. Создаем venv с версией пайтона 3.8
+conda create -n venv-3.8 python=3.8 anaconda
+
+2. Заходим в Venv
+conda activate venv-3.8
+
+3. Устанавливаем дополнительные зависимости
+pip install -U turicreate; pip install -U coremltools; pip install -U tfcoreml; pip install -U tensorflow
+
+4. Откатываем версии до необходимых
+pip install coremltools==4.0b3; pip install scikit-learn==0.19.2; pip install tensorflow==2.2.0; pip install keras==2.2.4
+
+5. Заходим в jupyter и настраиваем путь до папки dataset
+jupyter notebook
+
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
+6. По окончанию работы
+conda deactivate
