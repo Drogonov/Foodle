@@ -12,7 +12,7 @@ protocol VegetableCellViewModel {
     var statusButtonColor: UIColor { get }
     var vegetableImage: UIImage? { get }
     var vegetableName: String { get }
-    var vegetableEmoji: String.Element? { get }
+    var vegetableEmoji: String { get }
 }
 
 protocol VegetableCollectionViewCellDelegate: AnyObject {
@@ -31,7 +31,7 @@ class VegetableCollectionViewCell: UICollectionViewCell {
     private var statusButtonColor: UIColor? = nil
     private var vegetableImage: UIImage? = nil
     private var vegetableName: String? = nil
-    private var vegetableEmoji: String.Element? = nil
+    private var vegetableEmoji: String? = nil
     
     private let vegetableStatusButtonSize: CGFloat = 16
     private let vegetableImageViewSize: CGFloat = 120
@@ -120,7 +120,7 @@ class VegetableCollectionViewCell: UICollectionViewCell {
     
     private func configureVegetableButton() {
         vegetableImageButton.setImage(vegetableImage, for: .normal)
-        vegetableImageButton.setTitle(String(vegetableEmoji ?? String.Element("❓")), for: .normal)
+        vegetableImageButton.setTitle(String(vegetableEmoji ?? "❓"), for: .normal)
         addSubview(vegetableImageButton)
         vegetableImageButton.anchor(
             top: vegetableStatusButton.bottomAnchor,

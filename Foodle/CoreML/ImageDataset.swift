@@ -7,6 +7,11 @@
 
 import UIKit
 
+class Dataset: Injectable {
+    let trainingDataset = ImageDataset(split: .train)
+    let testingDataset = ImageDataset(split: .test)
+}
+
 /**
  A dataset is a list of all training or testing images and their true labels.
  */

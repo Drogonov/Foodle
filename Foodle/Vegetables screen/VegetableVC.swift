@@ -33,7 +33,7 @@ class VegetableVC: UIViewController {
     func handleTapVegetable(vegetableID: UUID) {
         guard let index = vegetablesViewModel.cells.firstIndex(where: {$0.id == vegetableID}) else { return }
         let label = vegetablesViewModel.cells[index]
-        if labels.builtinLabels.contains(where: { $0.labelEmoji.first == label.vegetableEmoji }) {
+        if labels.builtinLabels.contains(where: { $0.labelEmoji == label.vegetableEmoji }) {
             configureStandartNotification(vegetableID: vegetableID, name: label.vegetableName)
         } else {
             configureDeleteNotification(vegetableID: vegetableID, name: label.vegetableName)
@@ -43,22 +43,22 @@ class VegetableVC: UIViewController {
     func handleDeleteVegetable(vegetableID: UUID) {
         guard let index = vegetablesViewModel.cells.firstIndex(where: {$0.id == vegetableID}) else { return }
         let cell = vegetablesViewModel.cells[index]
-        if let emoji = vegetablesViewModel.cells[index].vegetableEmoji {
-            let label = Label(labelEmoji: String(emoji), labelName: cell.vegetableName)
-            labels.deleteLabel(label)
-            dataset.trainingDataset.deleteFolder(for: label.labelEmoji)
-            dataset.testingDataset.deleteFolder(for: label.labelEmoji)
-            configureVegetables()
-            debugPrint(vegetablesViewModel.cells)
-        }
+        let emoji = vegetablesViewModel.cells[index].vegetableEmoji
+        
+        let label = Label(labelEmoji: String(emoji), labelName: cell.vegetableName)
+        labels.deleteLabel(label)
+        dataset.trainingDataset.deleteFolder(for: label.labelEmoji)
+        dataset.testingDataset.deleteFolder(for: label.labelEmoji)
+        configureVegetables()
+        debugPrint(vegetablesViewModel.cells)
     }
     
     func handleTapStatusButton(vegetableID: UUID) {
         guard let index = vegetablesViewModel.cells.firstIndex(where: {$0.id == vegetableID}) else { return }
         let label = vegetablesViewModel.cells[index]
         
-        let imageCount = dataset.trainingDataset.images(withLabel: String(label.vegetableEmoji!)).count
-        let testImageCount = dataset.testingDataset.images(withLabel: String(label.vegetableEmoji!)).count
+        let imageCount = dataset.trainingDataset.images(withLabel: label.vegetableEmoji).count
+        let testImageCount = dataset.testingDataset.images(withLabel: label.vegetableEmoji).count
         
         var title: String
         switch imageCount {
@@ -70,7 +70,7 @@ class VegetableVC: UIViewController {
             title = "Model should work great. Model start working fine with trainingDataset 10 (your score \(imageCount)), and testingDataset 5 (your score \(testImageCount))"
         default: title = "Not enought info smth goes wrong"
         }
-
+        
         configureStatusLabelNotification(title: title)
         
     }
@@ -119,13 +119,14 @@ class VegetableVC: UIViewController {
             rejectActionText: "Cancel") { config, vagetableName, vegetableEmoji in
             switch config {
             case .textField:
-                guard vagetableName != nil, vegetableEmoji != nil else { return }
-                let emoji: String.Element = vegetableEmoji!.first!
-                let label = Label(labelEmoji: String(emoji), labelName: vagetableName!)
-                self.labels.addLabel(label)
-                self.dataset.trainingDataset.createFolder(for: label.labelEmoji)
-                self.dataset.testingDataset.createFolder(for: label.labelEmoji)
-                self.configureVegetables()
+                if let name = vagetableName,
+                   let emoji = vegetableEmoji?.first {
+                    let label = Label(labelEmoji: String(emoji), labelName: name)
+                    self.labels.addLabel(label)
+                    self.dataset.trainingDataset.createFolder(for: label.labelEmoji)
+                    self.dataset.testingDataset.createFolder(for: label.labelEmoji)
+                    self.configureVegetables()
+                }
             default: break
             }
         }
@@ -134,7 +135,7 @@ class VegetableVC: UIViewController {
     func setColor() {
         for i in 0..<vegetablesViewModel.cells.count {
             let cell = vegetablesViewModel.cells[i]
-            let colorCount = dataset.trainingDataset.images(withLabel: String(cell.vegetableEmoji!)).count
+            let colorCount = dataset.trainingDataset.images(withLabel: String(cell.vegetableEmoji)).count
             
             switch colorCount {
             case let x where x <= 5:

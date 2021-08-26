@@ -88,10 +88,6 @@ class SettingsVC: UIViewController {
         let validationDataset = dataset.testingDataset
         let trainVC = TrainNeuralNetworkVC(trainingDataset: trainingDataset,
                                            validationDataset: validationDataset)
-//        let trainVC = TrainNeuralNetworkViewController()
-//        trainVC.model = Models.loadTrainedNeuralNetwork()
-//        trainVC.trainingDataset = trainingDataset
-//        trainVC.validationDataset = validationDataset
         navigationController?.pushViewController(trainVC, animated: true)
     }
     

@@ -7,12 +7,6 @@
 
 import Foundation
 
-// For the sake of convenience, the datasets are global objects.
-class Dataset: Injectable {
-    let trainingDataset = ImageDataset(split: .train)
-    let testingDataset = ImageDataset(split: .test)
-}
-
 protocol Injectable {}
 
 @propertyWrapper

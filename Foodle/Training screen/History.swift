@@ -32,10 +32,6 @@ class History: Codable, Injectable {
         }
     }
     
-    init() {
-        debugPrint("History.load() \(History.load())")
-    }
-    
     func addEvent(trainLoss: Double, validationLoss: Double, validationAccuracy: Double) {
         events.append(Event(epoch: events.count,
                             trainLoss: trainLoss,
