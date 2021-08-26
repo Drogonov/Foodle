@@ -11,7 +11,6 @@ import UIKit
  A dataset is a list of all training or testing images and their true labels.
  */
 class ImageDataset: Injectable {
-    @Inject var labels: Labels
     enum Split {
         case train
         case test
@@ -33,9 +32,13 @@ class ImageDataset: Injectable {
     init(split: Split) {
         self.split = split
         baseURL = applicationDocumentsDirectory.appendingPathComponent(split.folderName)
+
+    }
+    
+    func set(labels: Labels) {
         createDatasetFolder()
-        createBuiltinLabelFolders()
-        scanAllImageFiles()
+        createBuiltinLabelFolders(labels: labels)
+        scanAllImageFiles(labels: labels)
     }
     
     /**
@@ -60,7 +63,7 @@ class ImageDataset: Injectable {
     /**
      Creates the subfolders for the built-in labels, if they don't exist yet.
      */
-    private func createBuiltinLabelFolders() {
+    private func createBuiltinLabelFolders(labels: Labels) {
         for label in labels.builtinLabels {
             createFolder(for: label.labelEmoji)
         }
@@ -79,7 +82,7 @@ class ImageDataset: Injectable {
     /**
      Reads the names of all the image files in all the label subfolders.
      */
-    private func scanAllImageFiles() {
+    private func scanAllImageFiles(labels: Labels) {
         examples = []
         for label in labels.labelsArray {
             scanImageFiles(for: label.labelEmoji)
@@ -145,7 +148,7 @@ extension ImageDataset {
      Reads the images from the Dataset folder inside the app bundle and copies
      them into the app's Documents directory.
      */
-    func copyBuiltInImages() {
+    func copyBuiltInImages(labels: Labels) {
         guard let baseURL = Bundle.main.url(forResource: split.folderName,
                                             withExtension: nil,
                                             subdirectory: "Dataset") else {

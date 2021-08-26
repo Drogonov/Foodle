@@ -8,12 +8,10 @@
 import Foundation
 
 // For the sake of convenience, the datasets are global objects.
-
-let trainingDataset = ImageDataset(split: .train)
-let testingDataset = ImageDataset(split: .test)
-//let labels = Labels()
-//let settings = Settings()
-//let history = History.load()
+class Dataset: Injectable {
+    let trainingDataset = ImageDataset(split: .train)
+    let testingDataset = ImageDataset(split: .test)
+}
 
 protocol Injectable {}
 
@@ -56,11 +54,15 @@ class DependencyManager {
     private let labels: Labels
     private let settings: Settings
     private let history: History
+    private let dataset: Dataset
     
     init() {
         self.labels = Labels()
         self.settings = Settings()
         self.history = History.load()
+        self.dataset = Dataset()
+        dataset.testingDataset.set(labels: labels)
+        dataset.trainingDataset.set(labels: labels)
         addDependencies()
     }
     
@@ -69,5 +71,6 @@ class DependencyManager {
         resolver.add(labels)
         resolver.add(settings)
         resolver.add(history)
+        resolver.add(dataset)
     }
 }

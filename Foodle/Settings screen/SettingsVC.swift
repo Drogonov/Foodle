@@ -13,6 +13,7 @@ class SettingsVC: UIViewController {
     @Inject var labels: Labels
     @Inject var settings: Settings
     @Inject var history: History
+    @Inject var dataset: Dataset
     
     let barTitle: String = "Settings"
     
@@ -69,22 +70,22 @@ class SettingsVC: UIViewController {
     }
     
     @objc func trainingDataTapped() {
-        let trainingImagesByLabel = ImagesByLabel(dataset: trainingDataset)
+        let trainingImagesByLabel = ImagesByLabel(dataset: dataset.trainingDataset)
         let trainingDataVC = DataViewController(barTitle: "Training Data",
                                                 imagesByLabel: trainingImagesByLabel)
         navigationController?.pushViewController(trainingDataVC, animated: true)
     }
     
     @objc func testingDataTapped() {
-        let testingImagesByLabel = ImagesByLabel(dataset: testingDataset)
+        let testingImagesByLabel = ImagesByLabel(dataset: dataset.testingDataset)
         let testingDataVC = DataViewController(barTitle: "Testing Data",
                                                imagesByLabel: testingImagesByLabel)
         navigationController?.pushViewController(testingDataVC, animated: true)
     }
     
     @objc func trainTapped() {
-        let trainingDataset = trainingDataset
-        let validationDataset = testingDataset
+        let trainingDataset = dataset.trainingDataset
+        let validationDataset = dataset.testingDataset
         let trainVC = TrainNeuralNetworkVC(trainingDataset: trainingDataset,
                                            validationDataset: validationDataset)
 //        let trainVC = TrainNeuralNetworkViewController()
@@ -96,8 +97,8 @@ class SettingsVC: UIViewController {
     
     @objc func evaluateTapped() {
         let model = Models.loadTrainedNeuralNetwork()
-        let dataSet = testingDataset
-        let evaluateVC = EvaluateViewController(model: model!, dataset: dataSet)
+        let dataset = dataset.testingDataset
+        let evaluateVC = EvaluateViewController(model: model!, dataset: dataset)
         navigationController?.pushViewController(evaluateVC, animated: true)
     }
     
@@ -115,8 +116,8 @@ class SettingsVC: UIViewController {
     }
     
     @objc func loadDataSet() {
-        trainingDataset.copyBuiltInImages()
-        testingDataset.copyBuiltInImages()
+        dataset.trainingDataset.copyBuiltInImages(labels: labels)
+        dataset.testingDataset.copyBuiltInImages(labels: labels)
     }
     
     @objc func resetToEmpty() {

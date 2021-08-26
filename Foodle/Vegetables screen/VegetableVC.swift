@@ -10,6 +10,7 @@ import UIKit
 class VegetableVC: UIViewController {
     // MARK: - Properties
     @Inject var labels: Labels
+    @Inject var dataset: Dataset
     let barTitle: String = "Vegetable List"
     private var vegetablesViewModel = VegetableViewModel(cells: [])
     private var vegetableCollectionView = VegetableCollectionView()
@@ -45,8 +46,8 @@ class VegetableVC: UIViewController {
         if let emoji = vegetablesViewModel.cells[index].vegetableEmoji {
             let label = Label(labelEmoji: String(emoji), labelName: cell.vegetableName)
             labels.deleteLabel(label)
-            trainingDataset.deleteFolder(for: label.labelEmoji)
-            testingDataset.deleteFolder(for: label.labelEmoji)
+            dataset.trainingDataset.deleteFolder(for: label.labelEmoji)
+            dataset.testingDataset.deleteFolder(for: label.labelEmoji)
             configureVegetables()
             debugPrint(vegetablesViewModel.cells)
         }
@@ -56,8 +57,8 @@ class VegetableVC: UIViewController {
         guard let index = vegetablesViewModel.cells.firstIndex(where: {$0.id == vegetableID}) else { return }
         let label = vegetablesViewModel.cells[index]
         
-        let imageCount = trainingDataset.images(withLabel: String(label.vegetableEmoji!)).count
-        let testImageCount = testingDataset.images(withLabel: String(label.vegetableEmoji!)).count
+        let imageCount = dataset.trainingDataset.images(withLabel: String(label.vegetableEmoji!)).count
+        let testImageCount = dataset.testingDataset.images(withLabel: String(label.vegetableEmoji!)).count
         
         var title: String
         switch imageCount {
@@ -122,10 +123,27 @@ class VegetableVC: UIViewController {
                 let emoji: String.Element = vegetableEmoji!.first!
                 let label = Label(labelEmoji: String(emoji), labelName: vagetableName!)
                 self.labels.addLabel(label)
-                trainingDataset.createFolder(for: label.labelEmoji)
-                testingDataset.createFolder(for: label.labelEmoji)
+                self.dataset.trainingDataset.createFolder(for: label.labelEmoji)
+                self.dataset.testingDataset.createFolder(for: label.labelEmoji)
                 self.configureVegetables()
             default: break
+            }
+        }
+    }
+    
+    func setColor() {
+        for i in 0..<vegetablesViewModel.cells.count {
+            let cell = vegetablesViewModel.cells[i]
+            let colorCount = dataset.trainingDataset.images(withLabel: String(cell.vegetableEmoji!)).count
+            
+            switch colorCount {
+            case let x where x <= 5:
+                vegetablesViewModel.cells[i].statusButtonColor = .red
+            case let x where x <= 10 && x > 5:
+                vegetablesViewModel.cells[i].statusButtonColor = .yellow
+            case let x where x > 10:
+                vegetablesViewModel.cells[i].statusButtonColor =  .green
+            default: vegetablesViewModel.cells[i].statusButtonColor = .gray
             }
         }
     }
@@ -135,6 +153,7 @@ class VegetableVC: UIViewController {
     func configureVegetables() {
         vegetablesViewModel = VegetableViewModel(cells: [])
         vegetablesViewModel = VegetableViewModel(labels: labels.labelsArray)
+        setColor()
         vegetableCollectionView.set(vegatables: vegetablesViewModel.cells)
     }
     
