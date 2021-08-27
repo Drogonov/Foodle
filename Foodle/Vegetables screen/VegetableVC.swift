@@ -28,8 +28,80 @@ class VegetableVC: UIViewController {
         configureVegetables()
     }
     
-    // MARK: - Selectors
+    // MARK: - Helper Functions
     
+    func configureUI() {
+        configureNavigationBar()
+        configureCollectionView()
+    }
+    
+    func configureNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.tintColor = UIColor.systemRed
+        navigationItem.title = barTitle
+    }
+    
+    func configureCollectionView() {
+        vegetableCollectionView.delegate = self
+        
+        view.addSubview(vegetableCollectionView)
+        vegetableCollectionView.anchor(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            leading: view.safeAreaLayoutGuide.leftAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            trailing: view.safeAreaLayoutGuide.rightAnchor
+        )
+        configureVegetables()
+    }
+    
+    func configureVegetables() {
+        let newViewModel = VegetableViewModel(labels: labels.labelsArray)
+        if vegetablesViewModel != newViewModel {
+            debugPrint("Vegetables updated")
+            vegetablesViewModel = VegetableViewModel(cells: [])
+            vegetablesViewModel = newViewModel
+            setColor()
+            vegetableCollectionView.set(vegatables: vegetablesViewModel.cells)
+        }
+    }
+    
+    func setColor() {
+        for i in 0..<vegetablesViewModel.cells.count {
+            let cell = vegetablesViewModel.cells[i]
+            let colorCount = dataset.trainingDataset.images(withLabel: String(cell.vegetableEmoji)).count
+            
+            switch colorCount {
+            case let x where x <= 5:
+                vegetablesViewModel.cells[i].statusButtonColor = .red
+            case let x where x <= 10 && x > 5:
+                vegetablesViewModel.cells[i].statusButtonColor = .yellow
+            case let x where x > 10:
+                vegetablesViewModel.cells[i].statusButtonColor =  .green
+            default: vegetablesViewModel.cells[i].statusButtonColor = .gray
+            }
+        }
+    }
+}
+
+extension VegetableVC: VegetableCollectionViewDelegate {
+    func handleStatusButton(vegetableID: UUID?) {
+        guard let id = vegetableID else { return }
+        handleTapStatusButton(vegetableID: id)
+    }
+    
+    func handleVegetableButton(vegetableID: UUID?) {
+        if vegetableID != nil {
+            self.handleTapVegetable(vegetableID: vegetableID!)
+        } else {
+            self.handleTapAddModel()
+        }
+    }
+}
+
+// MARK: - Selectors
+extension VegetableVC {
     func handleTapVegetable(vegetableID: UUID) {
         guard let index = vegetablesViewModel.cells.firstIndex(where: {$0.id == vegetableID}) else { return }
         let label = vegetablesViewModel.cells[index]
@@ -129,73 +201,6 @@ class VegetableVC: UIViewController {
                 }
             default: break
             }
-        }
-    }
-    
-    func setColor() {
-        for i in 0..<vegetablesViewModel.cells.count {
-            let cell = vegetablesViewModel.cells[i]
-            let colorCount = dataset.trainingDataset.images(withLabel: String(cell.vegetableEmoji)).count
-            
-            switch colorCount {
-            case let x where x <= 5:
-                vegetablesViewModel.cells[i].statusButtonColor = .red
-            case let x where x <= 10 && x > 5:
-                vegetablesViewModel.cells[i].statusButtonColor = .yellow
-            case let x where x > 10:
-                vegetablesViewModel.cells[i].statusButtonColor =  .green
-            default: vegetablesViewModel.cells[i].statusButtonColor = .gray
-            }
-        }
-    }
-    
-    // MARK: - Helper Functions
-    
-    func configureVegetables() {
-        vegetablesViewModel = VegetableViewModel(cells: [])
-        vegetablesViewModel = VegetableViewModel(labels: labels.labelsArray)
-        setColor()
-        vegetableCollectionView.set(vegatables: vegetablesViewModel.cells)
-    }
-    
-    func configureUI() {
-        configureNavigationBar()
-        configureCollectionView()
-    }
-    
-    func configureNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.barStyle = .default
-        navigationController?.navigationBar.tintColor = UIColor.systemRed
-        navigationItem.title = barTitle
-    }
-    
-    func configureCollectionView() {
-        vegetableCollectionView.delegate = self
-        
-        view.addSubview(vegetableCollectionView)
-        vegetableCollectionView.anchor(
-            top: view.safeAreaLayoutGuide.topAnchor,
-            leading: view.safeAreaLayoutGuide.leftAnchor,
-            bottom: view.safeAreaLayoutGuide.bottomAnchor,
-            trailing: view.safeAreaLayoutGuide.rightAnchor
-        )
-        configureVegetables()
-    }
-}
-
-extension VegetableVC: VegetableCollectionViewDelegate {
-    func handleStatusButton(vegetableID: UUID?) {
-        guard let id = vegetableID else { return }
-        handleTapStatusButton(vegetableID: id)
-    }
-    
-    func handleVegetableButton(vegetableID: UUID?) {
-        if vegetableID != nil {
-            self.handleTapVegetable(vegetableID: vegetableID!)
-        } else {
-            self.handleTapAddModel()
         }
     }
 }

@@ -15,8 +15,8 @@ struct Vegetable {
     let modelStatus: VegetableModelStatus
 }
 
-struct VegetableViewModel {
-    struct Cell: VegetableCellViewModel {
+struct VegetableViewModel: Equatable {
+    struct Cell: VegetableCellViewModel, Equatable {
         var id: UUID
         var statusButtonColor: UIColor
         var vegetableImage: UIImage?
@@ -25,6 +25,10 @@ struct VegetableViewModel {
     }
     
     var cells: [Cell]
+    
+    static func == (lhs: VegetableViewModel, rhs: VegetableViewModel) -> Bool {
+        return lhs.cells == rhs.cells
+    }
 }
 
 extension VegetableViewModel {
