@@ -539,6 +539,7 @@
 				DEVELOPMENT_TEAM = XXB3YP77W4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Foodle/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -560,6 +561,7 @@
 				DEVELOPMENT_TEAM = XXB3YP77W4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Foodle/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
