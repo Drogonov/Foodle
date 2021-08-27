@@ -162,7 +162,7 @@ extension VegetableVC {
     }
     
     func configureStandartNotification(vegetableID: UUID, name: String) {
-        self.showNotification(title: "What do you whant to do with \(name)?",
+        self.showNotification(title: "Sorry but you have no power with \(name)?",
                               defaultAction: true,
                               defaultActionText: "Cancel") { config, _  in
             switch config {
